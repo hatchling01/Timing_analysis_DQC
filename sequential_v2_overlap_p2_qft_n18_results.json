@@ -1,0 +1,29 @@
+[
+  {
+    "victim_qasm": "qft_n18.qasm",
+    "schedule_name": "A5_like_light",
+    "probe": "probe3_overlap_p2_sequential_v2_bestattack",
+    "fixed_rate_name": "R1_dense",
+    "fixed_rate_density": 1.0,
+    "timescale": "short",
+    "duration_name": "P20",
+    "fraction_of_victim_cross_ops": 0.2,
+    "total_rounds": 44,
+    "victim_total_ops": 802,
+    "victim_cross_module_ops": 217,
+    "victim_cross_fraction": 0.27057356608478805,
+    "workload_type": "sequential_v2_overlap_p2",
+    "placement_case": "P2_one_module_overlap",
+    "inter_stage_gap_ns": 20,
+    "completed_stage_count": 222,
+    "attacker_completed_requests": 44,
+    "attacker_avg_waiting_time_ns": 1028.0681818181818,
+    "attacker_avg_turnaround_time_ns": 1138.0681818181818,
+    "attacker_max_waiting_time_ns": 2550,
+    "attacker_num_waited_requests": 38,
+    "attacker_job_makespan_ns": 34695,
+    "attacker_total_events": 308,
+    "attacker_waited_fraction": 0.8636363636363636,
+    "hub_makespan_ns": 34755
+  }
+]

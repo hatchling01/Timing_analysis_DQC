@@ -1,0 +1,93 @@
+[
+  {
+    "probe": "probe_1_cx_chain",
+    "schedule": "A1_victim_only",
+    "workload_type": "static_distributed",
+    "attacker_completed_requests": 0,
+    "attacker_avg_waiting_time_ns": 0,
+    "attacker_avg_turnaround_time_ns": 0,
+    "attacker_max_waiting_time_ns": 0,
+    "attacker_num_waited_requests": 0,
+    "attacker_job_makespan_ns": 0,
+    "attacker_total_events": 0,
+    "hub_makespan_ns": 24290
+  },
+  {
+    "probe": "probe_1_cx_chain",
+    "schedule": "A2_always_on_overlap",
+    "workload_type": "static_distributed",
+    "attacker_completed_requests": 80,
+    "attacker_avg_waiting_time_ns": 3560.0,
+    "attacker_avg_turnaround_time_ns": 3670.0,
+    "attacker_max_waiting_time_ns": 7120,
+    "attacker_num_waited_requests": 79,
+    "attacker_job_makespan_ns": 8800,
+    "attacker_total_events": 160,
+    "hub_makespan_ns": 24700
+  },
+  {
+    "probe": "probe_1_cx_chain",
+    "schedule": "A3_front_loaded",
+    "workload_type": "static_distributed",
+    "attacker_completed_requests": 80,
+    "attacker_avg_waiting_time_ns": 3952.5,
+    "attacker_avg_turnaround_time_ns": 4062.5,
+    "attacker_max_waiting_time_ns": 7905,
+    "attacker_num_waited_requests": 79,
+    "attacker_job_makespan_ns": 8800,
+    "attacker_total_events": 160,
+    "hub_makespan_ns": 25090
+  },
+  {
+    "probe": "probe_1_cx_chain",
+    "schedule": "A4_back_loaded",
+    "workload_type": "static_distributed",
+    "attacker_completed_requests": 80,
+    "attacker_avg_waiting_time_ns": 3952.5,
+    "attacker_avg_turnaround_time_ns": 4062.5,
+    "attacker_max_waiting_time_ns": 7905,
+    "attacker_num_waited_requests": 79,
+    "attacker_job_makespan_ns": 8800,
+    "attacker_total_events": 160,
+    "hub_makespan_ns": 24290
+  },
+  {
+    "probe": "probe_1_cx_chain",
+    "schedule": "A5_periodic_probe",
+    "workload_type": "static_distributed",
+    "attacker_completed_requests": 40,
+    "attacker_avg_waiting_time_ns": 412.5,
+    "attacker_avg_turnaround_time_ns": 522.5,
+    "attacker_max_waiting_time_ns": 825,
+    "attacker_num_waited_requests": 39,
+    "attacker_job_makespan_ns": 4400,
+    "attacker_total_events": 80,
+    "hub_makespan_ns": 24340
+  },
+  {
+    "probe": "probe_1_cx_chain",
+    "schedule": "A6_bursty_synchronized",
+    "workload_type": "static_distributed",
+    "attacker_completed_requests": 120,
+    "attacker_avg_waiting_time_ns": 5337.416666666667,
+    "attacker_avg_turnaround_time_ns": 5447.416666666667,
+    "attacker_max_waiting_time_ns": 10515,
+    "attacker_num_waited_requests": 119,
+    "attacker_job_makespan_ns": 13200,
+    "attacker_total_events": 240,
+    "hub_makespan_ns": 24290
+  },
+  {
+    "probe": "probe_1_cx_chain",
+    "schedule": "A7_saturation",
+    "workload_type": "static_distributed",
+    "attacker_completed_requests": 120,
+    "attacker_avg_waiting_time_ns": 5756.666666666667,
+    "attacker_avg_turnaround_time_ns": 5866.666666666667,
+    "attacker_max_waiting_time_ns": 11510,
+    "attacker_num_waited_requests": 119,
+    "attacker_job_makespan_ns": 13200,
+    "attacker_total_events": 240,
+    "hub_makespan_ns": 25490
+  }
+]

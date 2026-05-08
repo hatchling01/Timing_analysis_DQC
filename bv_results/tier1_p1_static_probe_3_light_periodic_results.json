@@ -1,0 +1,93 @@
+[
+  {
+    "probe": "probe_3_light_periodic",
+    "schedule": "A1_victim_only",
+    "workload_type": "static_distributed",
+    "attacker_completed_requests": 0,
+    "attacker_avg_waiting_time_ns": 0,
+    "attacker_avg_turnaround_time_ns": 0,
+    "attacker_max_waiting_time_ns": 0,
+    "attacker_num_waited_requests": 0,
+    "attacker_job_makespan_ns": 0,
+    "attacker_total_events": 0,
+    "hub_makespan_ns": 1880
+  },
+  {
+    "probe": "probe_3_light_periodic",
+    "schedule": "A2_always_on_overlap",
+    "workload_type": "static_distributed",
+    "attacker_completed_requests": 50,
+    "attacker_avg_waiting_time_ns": 1522.1,
+    "attacker_avg_turnaround_time_ns": 1632.1,
+    "attacker_max_waiting_time_ns": 3320,
+    "attacker_num_waited_requests": 49,
+    "attacker_job_makespan_ns": 5540,
+    "attacker_total_events": 350,
+    "hub_makespan_ns": 5545
+  },
+  {
+    "probe": "probe_3_light_periodic",
+    "schedule": "A3_front_loaded",
+    "workload_type": "static_distributed",
+    "attacker_completed_requests": 50,
+    "attacker_avg_waiting_time_ns": 1837.5,
+    "attacker_avg_turnaround_time_ns": 1947.5,
+    "attacker_max_waiting_time_ns": 3675,
+    "attacker_num_waited_requests": 49,
+    "attacker_job_makespan_ns": 5520,
+    "attacker_total_events": 350,
+    "hub_makespan_ns": 5520
+  },
+  {
+    "probe": "probe_3_light_periodic",
+    "schedule": "A4_back_loaded",
+    "workload_type": "static_distributed",
+    "attacker_completed_requests": 50,
+    "attacker_avg_waiting_time_ns": 1837.5,
+    "attacker_avg_turnaround_time_ns": 1947.5,
+    "attacker_max_waiting_time_ns": 3675,
+    "attacker_num_waited_requests": 49,
+    "attacker_job_makespan_ns": 5520,
+    "attacker_total_events": 350,
+    "hub_makespan_ns": 5900
+  },
+  {
+    "probe": "probe_3_light_periodic",
+    "schedule": "A5_periodic_probe",
+    "workload_type": "static_distributed",
+    "attacker_completed_requests": 25,
+    "attacker_avg_waiting_time_ns": 828.0,
+    "attacker_avg_turnaround_time_ns": 938.0,
+    "attacker_max_waiting_time_ns": 1725,
+    "attacker_num_waited_requests": 23,
+    "attacker_job_makespan_ns": 3035,
+    "attacker_total_events": 175,
+    "hub_makespan_ns": 3075
+  },
+  {
+    "probe": "probe_3_light_periodic",
+    "schedule": "A6_bursty_synchronized",
+    "workload_type": "static_distributed",
+    "attacker_completed_requests": 75,
+    "attacker_avg_waiting_time_ns": 2526.6666666666665,
+    "attacker_avg_turnaround_time_ns": 2636.6666666666665,
+    "attacker_max_waiting_time_ns": 5280,
+    "attacker_num_waited_requests": 74,
+    "attacker_job_makespan_ns": 8275,
+    "attacker_total_events": 525,
+    "hub_makespan_ns": 8380
+  },
+  {
+    "probe": "probe_3_light_periodic",
+    "schedule": "A7_saturation",
+    "workload_type": "static_distributed",
+    "attacker_completed_requests": 75,
+    "attacker_avg_waiting_time_ns": 2485.733333333333,
+    "attacker_avg_turnaround_time_ns": 2595.733333333333,
+    "attacker_max_waiting_time_ns": 5180,
+    "attacker_num_waited_requests": 74,
+    "attacker_job_makespan_ns": 8275,
+    "attacker_total_events": 525,
+    "hub_makespan_ns": 8280
+  }
+]

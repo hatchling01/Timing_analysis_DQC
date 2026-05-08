@@ -1,0 +1,22 @@
+{
+  "trace_type": "static_distributed",
+  "total_events": 558,
+  "local_events": 310,
+  "cross_module_events": 248,
+  "completed_hub_requests": 248,
+  "pending_hub_requests": 0,
+  "active_hub_requests": 0,
+  "per_module_local_events": {
+    "module_0": 104,
+    "module_1": 68,
+    "module_2": 60,
+    "module_3": 40,
+    "module_4": 38
+  },
+  "avg_waiting_time_ns": 5641.370967741936,
+  "avg_turnaround_time_ns": 5752.419354838709,
+  "max_waiting_time_ns": 12210,
+  "hub_makespan_ns": 15010,
+  "hub_current_time_ns": 15010,
+  "num_waited_requests": 246
+}

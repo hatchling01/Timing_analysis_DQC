@@ -1,0 +1,38 @@
+[
+  {
+    "victim_qasm": "sat_n11.qasm",
+    "schedule_name": "A5_like_light",
+    "probe": "probe3_R1_uniform_long_timescale",
+    "duration_name": "P50",
+    "fraction_of_victim_cross_ops": 0.5,
+    "total_rounds": 21,
+    "victim_cross_module_ops": 42,
+    "workload_type": "static_distributed",
+    "attacker_completed_requests": 21,
+    "attacker_avg_waiting_time_ns": 697.6190476190476,
+    "attacker_avg_turnaround_time_ns": 807.6190476190476,
+    "attacker_max_waiting_time_ns": 1445,
+    "attacker_num_waited_requests": 20,
+    "attacker_job_makespan_ns": 2700,
+    "attacker_total_events": 147,
+    "hub_makespan_ns": 4675
+  },
+  {
+    "victim_qasm": "sat_n11.qasm",
+    "schedule_name": "A5_like_light",
+    "probe": "probe3_R1_uniform_long_timescale",
+    "duration_name": "P100",
+    "fraction_of_victim_cross_ops": 1.0,
+    "total_rounds": 42,
+    "victim_cross_module_ops": 42,
+    "workload_type": "static_distributed",
+    "attacker_completed_requests": 42,
+    "attacker_avg_waiting_time_ns": 1483.8095238095239,
+    "attacker_avg_turnaround_time_ns": 1593.8095238095239,
+    "attacker_max_waiting_time_ns": 3020,
+    "attacker_num_waited_requests": 41,
+    "attacker_job_makespan_ns": 5010,
+    "attacker_total_events": 294,
+    "hub_makespan_ns": 5070
+  }
+]
