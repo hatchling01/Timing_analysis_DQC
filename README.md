@@ -288,20 +288,21 @@ Experiment A demonstrates significant latency shifts when victim load is present
 
 ### Key Insights
 
-1. **Execution Mode Impact**: Monolithic execution eliminates cross-module communication entirely, providing the lowest timing leakage but potentially suboptimal resource utilization. Sequential modular v2 optimizes scheduling to reduce waiting times (145 ns vs 5641 ns in v1) at the cost of increased makespan (32480 ns vs 15010 ns). Static distributed shows identical performance to sequential v1 in this dataset.
+1. **Execution Mode Tradeoff Remains The Primary Security Driver**: Monolithic execution removes cross-module traffic and therefore minimizes timing leakage, while modular and distributed modes expose measurable contention at shared hub resources. Across the baseline data, sequential modular v2 reduces average waiting relative to the earlier sequential/static style runs, but it does not eliminate side-channel structure; it mainly shifts the performance-security tradeoff by lowering some queueing costs while increasing overall makespan.
 
-2. **Circuit-Specific Leakage**: Timing leakage varies significantly by circuit structure. Circuits with low cross-module fractions (DNN: 3.5%) show minimal attacker waiting (0%), while high-cross circuits (SAT: 44.2%, Square Root: 44.3%) exhibit near-complete detection (89-98% waited fraction).
+2. **Leakage Strength Tracks Communication Structure Across Both Benchmarks And QAOA Families**: The benchmark circuits and the QAOA-family summaries both show that workloads with more cross-module activity produce stronger attacker-visible timing signatures. Low-cross workloads such as DNN remain comparatively quiet, while QFT, SAT, square-root, and many QAOA instances generate substantially higher waiting times, waited fractions, and job makespans for the attacker.
 
-3. **Attack Schedule Effectiveness**: Different probing schedules yield varying detection strengths. Always-on overlap (A2) and bursty synchronized (A6) attacks experience the highest delays (3669-5757 ns avg waiting), while periodic probing (A5) provides moderate detection with lower resource usage.
+3. **Attack Intensity Is Tunable Rather Than Binary**: The rate, spacing, and time-window sweeps show that leakage can be dialed up or down by changing probe density and schedule shape. In the QAOA disjoint-allocation summaries, moving from light periodic windows such as `P20` to denser `P100` attacks raises attacker waiting from tens or low hundreds of nanoseconds to sustained sub-microsecond or multi-microsecond ranges, with waited fractions often climbing from roughly half the requests to nearly all requests.
 
-4. **Placement Sensitivity**: P1 placement (disjoint modules) still allows significant timing leakage through shared hub contention, with all overlap schedules showing >98% waited requests. P2 placement amplifies this effect for circuits with cross-module operations.
+4. **Placement Changes The Magnitude Of Leakage, Not Its Existence**: The P1 disjoint-allocation studies show that shared-hub contention alone is enough to leak victim activity, while the P2 overlapped-allocation studies amplify that signal through partial resource overlap. Even comparatively light `P20` overlap attacks in the QAOA overlap summaries still produce nonzero waiting and substantial waited fractions, confirming that overlap is not required for leakage but does intensify it.
 
-5. **Probe Strategy Variations**: Different probe types (CX chains, bursty entangling, light periodic) show similar qualitative behavior but may differ in quantitative timing signatures and resource consumption.
+5. **Timing Traces Support Workload Fingerprinting, Not Just Activity Detection**: The QAOA pairwise-distance and fingerprint artifacts show that timing observations can separate multiple closely related QAOA circuits from one another, not merely distinguish "busy" from "idle." This pushes the side channel from coarse workload detection toward algorithm-family fingerprinting and circuit identification.
 
 ### Implications for Quantum Security
 
 - Modular DQC architectures inherently leak timing information through shared hub resources, regardless of module placement strategy
 - Attackers can infer circuit structure and execution patterns via passive timing observation, with detection rates approaching 100% for communication-heavy circuits
+- The QAOA-family studies indicate that passive timing can also support fingerprinting among related algorithm instances, not only detection of victim presence
 - Mitigation strategies should focus on constant-time execution, noise injection, or fully distributed architectures without shared bottlenecks
 - Architecture design must balance performance gains against security risks, particularly for sensitive quantum algorithms
 
