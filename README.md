@@ -39,7 +39,10 @@ Key contributions include:
 - `*_results.json`: Attack simulation results
 - `plot_*.py`: Plotting scripts for visualization
 - `*.png`: Generated plots and figures
-- `bv_results/`, `QFT_results/`, `square_root_n18_results/`, etc.: Additional detailed results for specific circuits and attack configurations
+- `bv_results/`, `QFT_results/`, `square_root_n18_results/`: Circuit-specific P1 static attack outputs for BV, QFT, and square-root workloads
+- `Disjoint_allocation/`: P1/disjoint-allocation sweeps, sequential best-attack runs, and QAOA-family distinguishability artifacts
+- `Overlapped_allocation/`: P2/overlap attack sweeps, static overlap runs, and QAOA-family distinguishability artifacts
+- `selecting_best_probe_probe3/`: Probe-selection burst sweeps comparing probe families on communication-heavy circuits
 
 ### Dependencies
 - `netsquid_clean_env.yml`: Conda environment specification
@@ -118,6 +121,54 @@ Attacker probes shared resources (hub or entanglement services) to detect victim
 
 *Note: Results show significant timing leakage under all overlap schedules, with bursty and saturation attacks experiencing the highest delays.*
 
+### Additional Result Families Present In The Repository
+
+The repository contains several broader experiment families beyond the summary tables above. These are already generated on disk and can be reproduced from the included driver scripts.
+
+#### P1 Disjoint-Allocation Probe-3 Sweeps
+- `Disjoint_allocation/probe3_rate_sweep_*`: Probe-rate sweeps across BV, DNN, QFT, SAT, and square-root circuits
+- `Disjoint_allocation/probe3_spacing_R1_*` and `probe3_spacing_R2_*`: Inter-probe spacing sweeps for two rate regimes
+- `Disjoint_allocation/probe3_R1_uniform_short_*`, `..._medium_*`, `..._long_*`: Time-scale sweeps for light periodic probing
+- `Disjoint_allocation/probe3_R1_uniform_reldur_*` and `..._absdur_*`: Relative- and absolute-duration attack window sweeps
+
+These files extend the README's current BV-only example by showing how timing leakage changes as the attacker varies probe density, spacing, and observation window width across multiple workloads.
+
+#### Disjoint Sequential Best-Attack Families
+- `Disjoint_allocation/sequential_bestattack_*`: Best-attack runs for sequential modular execution
+- `Disjoint_allocation/sequential_bestattack_v2_*`: Best-attack runs for the optimized sequential modular v2 workflow
+
+Both sets are available for BV, DNN, QFT, SAT, and square-root workloads and provide per-run JSON plus job-count, makespan, and request-level plots.
+
+#### P2 Overlapped-Allocation Sweep Families
+- `Overlapped_allocation/static_overlap_p2_*`: Static-distributed overlap runs for all five benchmark circuits
+- `Overlapped_allocation/overlap_p2_pattern_*`: Pattern/schedule sweeps under partial module overlap
+- `Overlapped_allocation/overlap_p2_r1_timescale_*`: Probe-3 time-scale sweeps for overlapped placement
+- `Overlapped_allocation/overlap_p2_ratesweep_*`: Probe-density sweeps at `P20`, `P50`, and `P100`
+
+These artifacts complement the top-level `sequential_v2_overlap_p2_*` results by covering additional overlap patterns and static-distributed attack scenarios.
+
+#### QAOA Family Distinguishability And Fingerprinting
+
+The repository includes full QAOA-family timing-fingerprint studies for QAOA circuits `qaoa_nativegates_ibm_qiskit_opt3_5.qasm` through `..._15.qasm`.
+
+- `Disjoint_allocation/qaoa_family_best_attack_results.json`, `..._summary.csv`, `..._fingerprints.csv`, `..._pairwise_distance.csv`, `..._pairwise_distance.png`, `..._request_metrics.png`: P1/static-distributed QAOA distinguishability outputs
+- `Disjoint_allocation/qaoa_family_best_attack_sequential_v2_results.json` and companion CSV/PNG files: Sequential modular v2 QAOA distinguishability outputs
+- `Overlapped_allocation/qaoa_family_best_attack_overlap_p2_results.json` and companion CSV/PNG files: P2/one-module-overlap QAOA distinguishability outputs
+
+These files capture attack fingerprints, request-level metrics, and pairwise distance matrices that quantify how well timing observations separate different QAOA instances.
+
+#### Probe-Selection Burst Sweeps
+- `selecting_best_probe_probe3/burst_sweep_qft_n18_probe_{1,2,3}_*`
+- `selecting_best_probe_probe3/burst_sweep_square_root_n18_probe_{1,2,3}_*`
+
+These burst-sweep experiments compare CX-chain, bursty-entangling, and light-periodic probes on QFT and square-root workloads to help select an effective probe family for highly communication-heavy circuits.
+
+#### Additional Circuit-Specific Static Attack Folders
+- `QFT_results/`: P1 static attack plots and JSON outputs for QFT under probes 1, 2, and 3
+- `square_root_n18_results/`: P1 static attack plots and JSON outputs for square-root, including aggregate `tier1_p1_static_*` plots and per-probe breakdowns
+
+Together with `bv_results/`, these folders provide circuit-level drill-downs that are more detailed than the summary tables in this README.
+
 ### Timing Leakage in Entanglement Services
 
 Experiment A demonstrates significant latency shifts when victim load is present:
@@ -138,6 +189,9 @@ Experiment A demonstrates significant latency shifts when victim load is present
 ![Average Waiting Time](plot_avg_waiting_time.png)
 *Average waiting times for hub requests*
 
+![Max Waiting Time](plot_max_waiting_time.png)
+*Worst-case waiting times for hub requests*
+
 ![Average Turnaround Time](plot_avg_turnaround_time.png)
 *Average turnaround times*
 
@@ -146,6 +200,9 @@ Experiment A demonstrates significant latency shifts when victim load is present
 
 ![Hub Requests](plot_hub_requests.png)
 *Completed hub requests*
+
+![Nonzero Wait Requests](plot_nonzero_wait_requests.png)
+*Fraction or count of requests that experienced nonzero waiting*
 
 ### Per-Module Analysis
 ![Monolithic](plot_per_module_monolithic.png)
@@ -209,6 +266,24 @@ Experiment A demonstrates significant latency shifts when victim load is present
 ![P1 Static Probe 3 Light Periodic Job Makespan](bv_results/tier1_p1_static_probe_3_light_periodic_job_makespan.png)
 ![P1 Static Probe 3 Light Periodic Request Level](bv_results/tier1_p1_static_probe_3_light_periodic_request_level.png)
 
+### Additional Circuit-Specific Attack Plot Collections
+`QFT_results/` and `square_root_n18_results/` contain the same probe-1, probe-2, and probe-3 plot families shown above for BV, along with their corresponding `*_results.json` files. The square-root folder also includes aggregate `tier1_p1_static_job_counts.png`, `tier1_p1_static_job_makespan.png`, `tier1_p1_static_job_level.png`, and `tier1_p1_static_results.json` outputs.
+
+### QAOA Distinguishability Visualizations
+![QAOA Static Pairwise Distance](Disjoint_allocation/qaoa_family_best_attack_pairwise_distance.png)
+*Pairwise timing-distance matrix for the disjoint/static QAOA family study*
+
+![QAOA Sequential v2 Pairwise Distance](Disjoint_allocation/qaoa_family_best_attack_sequential_v2_pairwise_distance.png)
+*Pairwise timing-distance matrix for the sequential modular v2 QAOA family study*
+
+![QAOA Overlap P2 Pairwise Distance](Overlapped_allocation/qaoa_family_best_attack_overlap_p2_pairwise_distance.png)
+*Pairwise timing-distance matrix for the P2 overlapped-allocation QAOA family study*
+
+### Sweep And Placement Study Outputs
+- `Disjoint_allocation/` contains full JSON and PNG outputs for probe-rate, spacing, and time-scale sweeps across all benchmark circuits.
+- `Overlapped_allocation/` contains static-overlap, pattern, time-scale, and rate-sweep outputs for all benchmark circuits.
+- `selecting_best_probe_probe3/` contains burst-sweep comparisons used to choose between probe families on QFT and square-root workloads.
+
 ## Summary of Findings
 
 ### Key Insights
@@ -259,6 +334,20 @@ python run_static_distributed.py
 # Attack simulations
 python run_attack_tier1_p1_static.py
 python run_attack_tier1_p2_static_bestattack.py
+python run_attack_tier1_p1_sequential_bestattack.py
+python run_attack_tier1_p2_sequential_v2_bestattack.py
+python run_attack_tier1_p1_static_probe3_ratesweep.py
+python run_attack_tier1_p1_static_probe3_spacingsweep_R1.py
+python run_attack_tier1_p1_static_probe3_spacingsweep_R2.py
+python run_attack_tier1_p1_static_probe3_r1_uniform_short_timescale.py
+python run_attack_tier1_p1_static_probe3_r1_uniform_medium_timescale.py
+python run_attack_tier1_p1_static_probe3_r1_uniform_long_timescale.py
+python run_attack_tier1_p1_static_probe3_r1_uniform_relativedurationsweep.py
+python run_attack_tier1_p1_static_probe3_r1_uniform_absolutedurationsweep.py
+python run_attack_tier1_p2_static_pattern_sweep.py
+python run_attack_tier1_p2_static_r1_timescale_sweep.py
+python run_attack_tier1_p2_static_probe3_rate_sweep.py
+python qaoa_family_best_attack_overlap_p2.py
 
 # Plotting
 python plot_baseline_stats.py
