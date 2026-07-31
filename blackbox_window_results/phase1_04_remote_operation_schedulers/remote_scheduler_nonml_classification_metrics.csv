@@ -1,0 +1,13 @@
+scheduler_policy,method,sample_count,class_count,chance_accuracy,accuracy,mean_template_margin_ns
+coherence_deadline,nearest_mean_trace_template,15,5,0.2,0.5333333333333333,1.1666666666666667
+dependency_ready,nearest_mean_trace_template,15,5,0.2,0.4,0.5
+endpoint_aware,nearest_mean_trace_template,15,5,0.2,0.3333333333333333,0.08333333333333333
+first_come_first_served,nearest_mean_trace_template,15,5,0.2,0.6666666666666666,46.04166666666667
+link_aware,nearest_mean_trace_template,15,5,0.2,0.4,0.09722222222222224
+longest_waiting_first,nearest_mean_trace_template,15,5,0.2,0.26666666666666666,0.013888888888888928
+priority_scheduling,nearest_mean_trace_template,15,5,0.2,0.26666666666666666,0.013888888888888928
+randomized_arbitration,nearest_mean_trace_template,15,5,0.2,0.2,0.0
+round_robin_tenants,nearest_mean_trace_template,15,5,0.2,0.3333333333333333,0.08333333333333333
+shortest_operation_first,nearest_mean_trace_template,15,5,0.2,0.5333333333333333,0.20833333333333331
+static_circuit_layer,nearest_mean_trace_template,15,5,0.2,0.4,6.180555555555555
+weighted_fair_queueing,nearest_mean_trace_template,15,5,0.2,0.3333333333333333,0.08333333333333333

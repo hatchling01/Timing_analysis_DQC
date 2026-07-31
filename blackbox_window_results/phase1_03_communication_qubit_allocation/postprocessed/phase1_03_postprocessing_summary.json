@@ -1,0 +1,55 @@
+{
+  "timing_change_threshold_ns": 0.0,
+  "input_files": {
+    "comparison": "/home/hatchling/tmp_mamba/black_box_attack/blackbox_window_results/phase1_03_communication_qubit_allocation/communication_qubit_attacker_comparison.csv",
+    "request_log": "/home/hatchling/tmp_mamba/black_box_attack/blackbox_window_results/phase1_03_communication_qubit_allocation/communication_qubit_attacker_request_log.csv",
+    "trial_summary": "/home/hatchling/tmp_mamba/black_box_attack/blackbox_window_results/phase1_03_communication_qubit_allocation/communication_qubit_trial_summary.csv"
+  },
+  "probe_row_count": 266400,
+  "trial_count": 5550,
+  "successful_victim_trial_count": 4169,
+  "victim_failure_trial_count": 1381,
+  "mean_positive_delay_detection_probability": 0.017826576576576575,
+  "mean_negative_speedup_detection_probability": 0.006238738738738738,
+  "mean_failure_only_detection_probability": 0.010810810810810811,
+  "mean_signed_timing_or_failure_detection_probability": 0.034876126126126124,
+  "mean_successful_victim_slowdown_ratio": 1.1099141542235842,
+  "nonml_overall_metrics": {
+    "scope": "overall",
+    "sample_count": 11100,
+    "true_positive": 603,
+    "true_negative": 4759,
+    "false_positive": 791,
+    "false_negative": 4947,
+    "accuracy": 0.48306306306306307,
+    "balanced_accuracy": 0.48306306306306307,
+    "sensitivity_recall": 0.10864864864864865,
+    "specificity": 0.8574774774774775,
+    "precision": 0.43256814921090386,
+    "f1": 0.17367511520737325
+  },
+  "random_forest_overall_metrics": {
+    "scope": "overall",
+    "sample_count": 11100,
+    "true_positive": 2869,
+    "true_negative": 4167,
+    "false_positive": 1383,
+    "false_negative": 2681,
+    "accuracy": 0.6338738738738738,
+    "balanced_accuracy": 0.6338738738738738,
+    "sensitivity_recall": 0.516936936936937,
+    "specificity": 0.7508108108108108,
+    "precision": 0.6747412982126059,
+    "f1": 0.5853907365843705,
+    "subexperiment": NaN,
+    "allocation_policy": NaN,
+    "communication_qubits_per_module": NaN
+  },
+  "interpretation_notes": [
+    "Positive delay, negative speedup, and request-failure leakage are reported separately.",
+    "Victim slowdown excludes executions with rejected or failed victim requests.",
+    "Aggregate resource demand is not physical utilization and may exceed one because its components overlap.",
+    "The non-ML detector uses cross-trial attacker-only traces as negative controls.",
+    "The random forest uses only attacker-visible traces and holds out complete allocation configurations."
+  ]
+}

@@ -1,0 +1,13 @@
+attacker_request_id,probe_id,window_name,observation_duration_ns,round_start_time_ns,request_release_time_ns,actual_arrival_time_ns,service_start_time_ns,victim_on_completion_time_ns,service_time_ns,victim_on_waiting_time_ns,victim_on_turnaround_time_ns,source_module,target_modules,architecture_request_id,baseline_waiting_time_ns,baseline_turnaround_time_ns,baseline_completion_time_ns,excess_waiting_time_ns,excess_turnaround_time_ns,victim_contention_observed
+0,0,window_5us_short,5000,1000,1030,1030,1030,1140,110,0,110,module_3,module_4,0,0,110,1140,0,0,False
+1,1,window_5us_short,5000,1420,1450,1450,1850,1960,110,400,510,module_3,module_4,5,0,110,1560,400,400,True
+2,2,window_5us_short,5000,1840,1870,1870,5370,5480,110,3500,3610,module_3,module_4,37,0,110,1980,3500,3500,True
+3,3,window_5us_short,5000,2260,2290,2290,8010,8120,110,5720,5830,module_3,module_4,61,0,110,2400,5720,5720,True
+4,4,window_5us_short,5000,2680,2710,2710,9660,9770,110,6950,7060,module_3,module_4,76,0,110,2820,6950,6950,True
+5,5,window_5us_short,5000,3100,3130,3130,13510,13620,110,10380,10490,module_3,module_4,111,0,110,3240,10380,10380,True
+6,6,window_5us_short,5000,3520,3550,3550,17030,17140,110,13480,13590,module_3,module_4,143,0,110,3660,13480,13480,True
+7,7,window_5us_short,5000,3940,3970,3970,20330,20440,110,16360,16470,module_3,module_4,173,0,110,4080,16360,16360,True
+8,8,window_5us_short,5000,4360,4390,4390,23300,23410,110,18910,19020,module_3,module_4,200,0,110,4500,18910,18910,True
+9,9,window_5us_short,5000,4780,4810,4810,26050,26160,110,21240,21350,module_3,module_4,225,0,110,4920,21240,21240,True
+10,10,window_5us_short,5000,5200,5230,5230,26280,26390,110,21050,21160,module_3,module_4,227,0,110,5340,21050,21050,True
+11,11,window_5us_short,5000,5620,5650,5650,26390,26500,110,20740,20850,module_3,module_4,228,0,110,5760,20740,20740,True

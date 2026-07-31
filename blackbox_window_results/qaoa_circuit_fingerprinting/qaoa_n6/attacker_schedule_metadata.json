@@ -1,0 +1,13 @@
+{
+  "window_name": "qaoa_n6",
+  "observation_duration_ns": 20000,
+  "observation_window_start_ns": 1000,
+  "observation_window_end_ns": 21000,
+  "probe_round_period_ns": 420,
+  "total_probe_rounds": 48,
+  "total_attacker_events": 336,
+  "total_attacker_remote_requests": 48,
+  "first_remote_probe_release_ns": 1030,
+  "last_remote_probe_release_ns": 20770,
+  "realized_remote_probe_rate_per_us": 2.4
+}

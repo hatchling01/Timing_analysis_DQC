@@ -1,0 +1,13 @@
+attacker_request_id,rate_name,rate_multiplier,probe_round_period_ns,probe_round_id,round_start_time_ns,request_release_time_ns,actual_arrival_time_ns,service_start_time_ns,victim_on_completion_time_ns,service_time_ns,victim_on_waiting_time_ns,victim_on_turnaround_time_ns,source_module,target_modules,architecture_request_id,baseline_waiting_time_ns,baseline_turnaround_time_ns,baseline_completion_time_ns,excess_waiting_time_ns,excess_turnaround_time_ns,victim_contention_observed
+0,rate_0p25x_sparse,0.25,1680,0,1000,1030,1030,1140,1250,110,110,220,module_3,module_4,1,0,110,1140,110,110,True
+1,rate_0p25x_sparse,0.25,1680,1,2680,2710,2710,17970,18080,110,15260,15370,module_3,module_4,154,0,110,2820,15260,15260,True
+2,rate_0p25x_sparse,0.25,1680,2,4360,4390,4390,28420,28530,110,24030,24140,module_3,module_4,249,0,110,4500,24030,24030,True
+3,rate_0p25x_sparse,0.25,1680,3,6040,6070,6070,28530,28640,110,22460,22570,module_3,module_4,250,0,110,6180,22460,22460,True
+4,rate_0p25x_sparse,0.25,1680,4,7720,7750,7750,28640,28750,110,20890,21000,module_3,module_4,251,0,110,7860,20890,20890,True
+5,rate_0p25x_sparse,0.25,1680,5,9400,9430,9430,28750,28860,110,19320,19430,module_3,module_4,252,0,110,9540,19320,19320,True
+6,rate_0p25x_sparse,0.25,1680,6,11080,11110,11110,28860,28970,110,17750,17860,module_3,module_4,253,0,110,11220,17750,17750,True
+7,rate_0p25x_sparse,0.25,1680,7,12760,12790,12790,28970,29080,110,16180,16290,module_3,module_4,254,0,110,12900,16180,16180,True
+8,rate_0p25x_sparse,0.25,1680,8,14440,14470,14470,29080,29190,110,14610,14720,module_3,module_4,255,0,110,14580,14610,14610,True
+9,rate_0p25x_sparse,0.25,1680,9,16120,16150,16150,29190,29300,110,13040,13150,module_3,module_4,256,0,110,16260,13040,13040,True
+10,rate_0p25x_sparse,0.25,1680,10,17800,17830,17830,29300,29410,110,11470,11580,module_3,module_4,257,0,110,17940,11470,11470,True
+11,rate_0p25x_sparse,0.25,1680,11,19480,19510,19510,29410,29520,110,9900,10010,module_3,module_4,258,0,110,19620,9900,9900,True

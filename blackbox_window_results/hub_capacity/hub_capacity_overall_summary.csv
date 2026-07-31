@@ -1,0 +1,5 @@
+capacity_name,hub_max_concurrent_transfers,workload_count,average_excess_latency_ns,average_total_signal_ns,average_contention_fraction,workloads_with_signal,average_signal_retention,average_victim_slowdown_ratio,maximum_victim_slowdown_ratio,attacker_self_wait_ns
+capacity_1_serialized,1,5,6670.166666666667,320168.0,0.5791666666666666,5,1.0,1.0366954461501492,1.0728134424816889,0.0
+capacity_2_original,2,5,0.0,0.0,0.0,0,0.0,1.0,1.0,0.0
+capacity_3,3,5,0.0,0.0,0.0,0,0.0,1.0,1.0,0.0
+capacity_4,4,5,0.0,0.0,0.0,0,0.0,1.0,1.0,0.0

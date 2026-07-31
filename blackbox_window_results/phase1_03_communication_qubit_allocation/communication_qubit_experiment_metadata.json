@@ -1,0 +1,58 @@
+{
+  "experiment": "Phase 1.3 \u2014 Dynamic communication-qubit allocation",
+  "screening_design": true,
+  "configuration_count": 370,
+  "victim_workload_count": 5,
+  "trials_per_configuration": 3,
+  "allocation_policies": [
+    "static_assignment",
+    "first_available",
+    "round_robin",
+    "random_allocation",
+    "per_tenant_reserved",
+    "shared_global_pool",
+    "priority_allocation",
+    "fair_share",
+    "coherence_aware",
+    "predicted_demand"
+  ],
+  "communication_qubits_per_module_options": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "tenants_sharing_module_options": [
+    2,
+    3,
+    4,
+    8
+  ],
+  "reservation_duration_options_ns": [
+    0,
+    500,
+    2000
+  ],
+  "reset_time_options_ns": [
+    0,
+    50,
+    200
+  ],
+  "epr_prefetch_options": [
+    false,
+    true
+  ],
+  "coordination_options": [
+    "local",
+    "global"
+  ],
+  "allocation_granularity_options": [
+    "per_operation",
+    "per_layer",
+    "per_job"
+  ],
+  "hub_capacity": 64,
+  "base_remote_service_ns": 110,
+  "prefetched_remote_service_ns": 60,
+  "max_allocation_wait_ns": 10000
+}

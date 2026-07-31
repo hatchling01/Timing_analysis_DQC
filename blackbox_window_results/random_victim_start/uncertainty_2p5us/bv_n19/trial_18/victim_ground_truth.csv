@@ -1,0 +1,17 @@
+run_type,victim_remote_event_id,victim_trace_step,op_name,qubits,source_module,target_modules,arrival_time_ns,service_start_time_ns,completion_time_ns,waiting_time_ns,turnaround_time_ns,service_time_ns
+victim_present,0,20,barrier,"0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18",module_0,"module_1,module_2",17635,17635,17755,0,120,120
+victim_present,1,21,cx,"0,18",module_0,module_2,17640,17755,17865,115,225,110
+victim_present,2,22,cx,"1,18",module_0,module_2,17645,17865,17975,220,330,110
+victim_present,3,23,cx,"2,18",module_0,module_2,17650,17975,18085,325,435,110
+victim_present,4,24,cx,"3,18",module_0,module_2,17655,18085,18195,430,540,110
+victim_present,5,25,cx,"4,18",module_0,module_2,17660,18195,18305,535,645,110
+victim_present,6,26,cx,"5,18",module_0,module_2,17665,18305,18415,640,750,110
+victim_present,7,27,cx,"6,18",module_0,module_2,17670,18415,18525,745,855,110
+victim_present,8,28,cx,"7,18",module_1,module_2,17675,18525,18635,850,960,110
+victim_present,9,29,cx,"8,18",module_1,module_2,17680,18635,18745,955,1065,110
+victim_present,10,30,cx,"9,18",module_1,module_2,17685,18745,18855,1060,1170,110
+victim_present,11,31,cx,"10,18",module_1,module_2,17690,18855,18965,1165,1275,110
+victim_present,12,32,cx,"11,18",module_1,module_2,17695,18965,19075,1270,1380,110
+victim_present,13,33,cx,"12,18",module_1,module_2,17700,19075,19185,1375,1485,110
+victim_present,14,34,cx,"13,18",module_1,module_2,17705,19185,19295,1480,1590,110
+victim_present,15,39,barrier,"0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18",module_0,"module_1,module_2",17730,19295,19415,1565,1685,120

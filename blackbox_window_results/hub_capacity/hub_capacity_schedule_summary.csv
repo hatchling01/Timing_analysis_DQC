@@ -1,0 +1,5 @@
+capacity_name,hub_max_concurrent_transfers,observation_duration_ns,probe_round_period_ns,total_attacker_remote_requests,first_remote_probe_release_ns,last_remote_probe_release_ns,realized_remote_probe_rate_per_us
+capacity_1_serialized,1,20000,420,48,1030,20770,2.4
+capacity_2_original,2,20000,420,48,1030,20770,2.4
+capacity_3,3,20000,420,48,1030,20770,2.4
+capacity_4,4,20000,420,48,1030,20770,2.4
