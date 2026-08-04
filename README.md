@@ -6,11 +6,15 @@ This repository contains simulations and analyses of timing-based side-channel a
 
 The project evaluates three DQC execution modes (monolithic, sequential modular, static distributed) across multiple quantum circuits (Bernstein-Vazirani, Deep Neural Network inference, Quantum Fourier Transform, SAT solver, and square root) and implements various attack strategies including periodic probing, bursty attacks, and synchronized schedules.
 
+The `black_box_phase_1_results` branch is an extension of `master`. It preserves the original architecture and attack studies and adds a Phase 1 black-box evaluation in which the attacker learns only from its own probe completion times. The extension tests whether leakage survives realistic uncertainty and system choices: limited observation windows, unknown victim start times and placement, job/module allocation, tenancy isolation, communication-qubit allocation, remote-operation scheduling, and dynamic rerouting/remapping.
+
 Key contributions include:
 - Demonstration of timing leakage in Bell State Measurement (BSM) contention
 - Quantification of cross-module communication overhead in modular architectures
 - Evaluation of attack detection rates under different placement and scheduling strategies
 - Comprehensive performance benchmarks across execution modes
+- Black-box controls that separate untargeted probing from window-aligned probing
+- System-level leakage analysis across allocation, tenancy, scheduling, rerouting, and incomplete attacker knowledge
 
 ## Project Structure
 
@@ -20,6 +24,8 @@ Key contributions include:
 - `run_sequential_modular.py`, `run_sequential_modular_v2.py`: Sequential modular execution
 - `run_static_distributed.py`: Static distributed execution
 - `run_attack_tier1_*.py`: Tier-1 attack simulations for different placements and probes
+- `run_attack_tier1_p1_static_blackbox_*.py`: Black-box baseline, placement, hub-capacity, observation-window, probe, timing-uncertainty, and QAOA fingerprinting studies
+- `phase1_01_*.py` through `phase1_06_*.py`: Phase 1 system-factor experiments and post-processing
 
 ### Architecture Implementation
 - `new_arch_baseline.py`: Baseline architecture definitions
@@ -43,6 +49,8 @@ Key contributions include:
 - `Disjoint_allocation/`: P1/disjoint-allocation sweeps, sequential best-attack runs, and QAOA-family distinguishability artifacts
 - `Overlapped_allocation/`: P2/overlap attack sweeps, static overlap runs, and QAOA-family distinguishability artifacts
 - `selecting_best_probe_probe3/`: Probe-selection burst sweeps comparing probe families on communication-heavy circuits
+- `blackbox_results/`: Untargeted full-run black-box control for five benchmark circuits, including raw attacker observations and victim ground truth
+- `blackbox_window_results/`: Window-aligned black-box baselines, sensitivity sweeps, Phase 1.01-1.06 system studies, and QAOA fingerprint/noise-robustness results
 
 ### Dependencies
 - `netsquid_clean_env.yml`: Conda environment specification
@@ -82,7 +90,83 @@ Attacker probes shared resources (hub or entanglement services) to detect victim
 - A6: Bursty synchronized
 - A7: Saturation attacks
 
+## Phase 1 Black-Box Extension
+
+### Scope and Threat Model
+
+Phase 1 asks what can be inferred when an attacker cannot inspect the victim's circuit trace, queue state, placement, or scheduler decisions. The attacker submits legal remote-operation probes and observes only its own request release and completion times. Victim-side traces are retained in the result set strictly as evaluator ground truth; they are not attacker inputs.
+
+The default black-box configuration uses static-distributed execution, P1 disjoint placement, a serialized hub (`hub_max_concurrent_transfers = 1`), and a light periodic probe. The controlled sweeps then relax the attacker's start-time/placement knowledge and vary the architectural policies that determine contention.
+
+### What Is in `blackbox_results/`
+
+`blackbox_results/` contains the compact, untargeted full-run control experiment for five benchmark circuits. It is intentionally distinct from the window-aligned studies in `blackbox_window_results/`.
+
+The directory contains 26 files under `blackbox_results/baseline/`:
+
+- `blackbox_baseline_summary.csv`: one aggregate row per victim workload with the configuration, victim communication counts, attacker timing statistics, excess latency, contention fraction, and hub makespans.
+- `<circuit>_blackbox_attacker_observations.csv`: the attacker's observable request-level timing trace. These are the measurements available to a black-box adversary.
+- `<circuit>_blackbox_victim_ground_truth.csv`: evaluator-only victim activity used to score whether attacker delays coincide with victim traffic.
+- `<circuit>_blackbox_summary.json`: a machine-readable per-circuit configuration and metric summary.
+- `<circuit>_blackbox_excess_latency.png`: excess attacker latency across the run.
+- `<circuit>_blackbox_timing_trace.png`: attacker timing overlaid with evaluator-only victim activity for interpretation.
+
+The five circuit prefixes are `bv_n19`, `dnn_n16`, `qft_n18`, `sat_n11`, and `square_root_n18`. Under this control's fixed `D100` probe schedule (100 probe rounds, 420 ns effective cross-probe spacing, attacker start at 0 ns), all five workloads completed 100 attacker requests but recorded zero excess waiting and zero observed contention, even though the victims generated between 16 and 247 cross-module operations. This negative result is important: cross-module activity alone is not sufficient for an untargeted probe schedule to produce a signal. Temporal overlap with the victim's active communication window is the key condition tested by the next result family.
+
+### What Is in `blackbox_window_results/`
+
+`blackbox_window_results/` contains 3,527 generated artifacts and is the main Phase 1 result corpus. CSV files contain aggregate and request/trial-level data, JSON files preserve configurations and per-run metrics, PNG files visualize timing and system tradeoffs, and the largest request logs are compressed or stored with Git LFS.
+
+The top-level result families are:
+
+| Directory | Question answered |
+|---|---|
+| `baseline/` | Does a coarse, window-aligned black-box probe expose workload-dependent contention? |
+| `observation_window/`, `window_start_estimation/`, `random_victim_start/` | How much timing uncertainty can the attack tolerate? |
+| `probe_rate/`, `probe_type/`, `inter_probe_spacing/` | How do probe intensity, shape, and cadence trade signal strength against victim slowdown? |
+| `placement/`, `hub_capacity/` | Does disjoint placement prevent leakage, and how does hub parallelism change it? |
+| `phase1_01_job_module_allocation/` | How do admission and module-allocation policies create P1/P2-like placements and leakage? |
+| `phase1_02_tenancy_models/` | Which isolation boundary—exclusive modules, spatial/time slicing, or communication-interface sharing—controls leakage? |
+| `phase1_03_communication_qubit_allocation/` | How do communication-qubit allocation, reservation/reset, fairness, EPR prefetch, and failure behavior affect observability? |
+| `phase1_04_remote_operation_schedulers/` | How do queue discipline, priority, lookahead, preemption, and prefetch alter latency and leakage? |
+| `phase1_05_dynamic_rerouting_remapping/` | Can path changes and reconfiguration transients be detected or localized from timing? |
+| `phase1_06_unknown_placement_robustness/` | Does detection survive unknown physical placement and policy knowledge? |
+| `qaoa_circuit_fingerprinting/` | Can black-box timing distinguish QAOA circuits with 5-15 qubits? |
+| `qaoa_circuit_noise_robustness/` | Does the QAOA timing signature persist under timestamp and scheduler noise? |
+
+### Phase 1 Baseline Signal
+
+Aligning the attacker to a coarse 20 µs observation window changes the result materially. The windowed baseline uses the same five workloads, P1 disjoint placement, a serialized hub, and a light periodic probe:
+
+| Victim | Cross-module operations | Average excess probe latency | Contention-observed fraction |
+|---|---:|---:|---:|
+| BV n=19 | 16 | 88.5 ns | 10.4% |
+| SAT n=11 | 42 | 672.3 ns | 29.2% |
+| DNN n=16 | 72 | 678.5 ns | 52.1% |
+| QFT n=18 | 217 | 14,144.0 ns | 97.9% |
+| Square root n=18 | 247 | 17,767.5 ns | 100.0% |
+
+The ordering is not perfectly determined by operation count—timing and burst structure also matter—but the two most communication-heavy workloads produce the strongest signals by a wide margin.
+
+### Main Phase 1 Findings
+
+1. **Temporal localization turns a null control into a strong signal.** The untargeted full-run control records no contention, while a coarse window aligned to victim activity exposes all five workloads. Expanding the observation window from 5 µs to 40 µs dilutes average contention from 73.3% to 43.5%, showing that irrelevant probes reduce signal concentration.
+
+2. **Probe intensity increases both observability and interference.** Across the five-workload probe-rate sweep, moving from 0.25x to 4x raises average contention from 50.0% to 96.8% and average excess latency from 5.61 µs to 11.69 µs, but also raises average victim slowdown from 1.012x to 1.205x. Probe choice shows the same tradeoff: the bursty-entangling probe reaches 95.4% contention but causes 1.380x average slowdown, whereas the light-periodic probe yields 57.9% contention with 1.037x slowdown.
+
+3. **Disjoint compute placement does not remove a serialized-hub side channel.** With hub capacity 1, P1 disjoint and P2 one-module-overlap configurations produce the same five-workload average signal (6.67 µs excess latency and 57.9% contention), because the hub is the shared bottleneck. Raising capacity to 2 eliminates the signal in the modeled P1 case, but P2 retains 1.63 µs average excess latency and 37.9% contention through the remaining shared resources.
+
+4. **Isolation and control-plane policy are security parameters.** Module-exclusive tenancy produces zero modeled leakage, while time-sliced module sharing produces 253.6 ns unconditional mean leakage and a 70.7% detection probability. Remote-operation scheduling changes mean absolute attacker timing shifts from 7.7 ns (`link_aware`) to 320.5 ns (`first_come_first_served`); the static circuit-layer scheduler also has the highest mean latency, deadline-miss rate, and rejection rate in its policy summary.
+
+5. **Dynamic reconfiguration leaves a timing fingerprint.** Per-operation path selection produces the largest mean absolute timing change (131.6 ns) and 100% path-change detection accuracy in the mechanism summary. Communication-qubit reassignment creates a 1.67x transient leakage amplification. These results indicate that rerouting can move or reshape leakage rather than simply remove it.
+
+6. **Incomplete placement knowledge reduces precision but does not erase detection.** Across the Phase 1.06 knowledge conditions, paired detection remains approximately 53.6%-55.8% for the evaluated one-shot and adaptive strategies, with the first observable change appearing after roughly 23-24 probes on average. Adaptive exploration has the highest paired detection rate (55.8%) without requiring exact physical placement.
+
+7. **The signal supports circuit fingerprinting and survives moderate noise.** QAOA circuits from 5 through 15 qubits retain distinct excess-latency structures. The noise study shows mean signals remain close to their clean values under the evaluated 5 ns and 20 ns timestamp/scheduler perturbations; 50 ns combined noise increases variance but does not uniformly collapse the workload ordering.
+
 ## Results
+
+The following sections summarize the original `master` result families. They remain part of this branch and provide the architectural and attack-model foundation extended by the Phase 1 black-box studies above.
 
 ### Baseline Performance Comparison
 
@@ -171,11 +255,7 @@ Together with `bv_results/`, these folders provide circuit-level drill-downs tha
 
 ### Timing Leakage in Entanglement Services
 
-Experiment A demonstrates significant latency shifts when victim load is present:
-
-- **Victim OFF**: Mean latency ~X ns
-- **Victim ON**: Mean latency ~Y ns
-- **KS Statistic**: Z (indicating distributional difference)
+The original Experiment A studies establish the basic shared-entanglement-service timing channel. Phase 1 extends that mechanism to a stricter measurement model: the attacker actively submits probes but infers victim behavior only from its own completion timing. Refer to `blackbox_results/baseline/` for the untargeted control and `blackbox_window_results/baseline/` for the window-aligned five-workload comparison.
 
 ## Images and Visualizations
 
@@ -288,23 +368,25 @@ Experiment A demonstrates significant latency shifts when victim load is present
 
 ### Key Insights
 
-1. **Execution Mode Tradeoff Remains The Primary Security Driver**: Monolithic execution removes cross-module traffic and therefore minimizes timing leakage, while modular and distributed modes expose measurable contention at shared hub resources. Across the baseline data, sequential modular v2 reduces average waiting relative to the earlier sequential/static style runs, but it does not eliminate side-channel structure; it mainly shifts the performance-security tradeoff by lowering some queueing costs while increasing overall makespan.
+1. **Execution mode establishes exposure, but timing alignment determines whether it is observable.** Monolithic execution avoids remote shared-resource traffic. Modular execution creates the opportunity for leakage, yet the zero-signal `blackbox_results/` control shows that a probe must overlap the relevant communication window to observe it.
 
-2. **Leakage Strength Tracks Communication Structure Across Both Benchmarks And QAOA Families**: The benchmark circuits and the QAOA-family summaries both show that workloads with more cross-module activity produce stronger attacker-visible timing signatures. Low-cross workloads such as DNN remain comparatively quiet, while QFT, SAT, square-root, and many QAOA instances generate substantially higher waiting times, waited fractions, and job makespans for the attacker.
+2. **Communication structure controls signal strength.** In the windowed Phase 1 baseline, BV produces only 88.5 ns average excess latency, while QFT and square root produce 14.1 µs and 17.8 µs. Cross-module count is a strong indicator, with event timing and burstiness explaining differences among workloads with closer counts.
 
-3. **Attack Intensity Is Tunable Rather Than Binary**: The rate, spacing, and time-window sweeps show that leakage can be dialed up or down by changing probe density and schedule shape. In the QAOA disjoint-allocation summaries, moving from light periodic windows such as `P20` to denser `P100` attacks raises attacker waiting from tens or low hundreds of nanoseconds to sustained sub-microsecond or multi-microsecond ranges, with waited fractions often climbing from roughly half the requests to nearly all requests.
+3. **Attack sensitivity and attacker-induced slowdown must be reported together.** Denser or burstier probes improve detection but perturb the victim more strongly. The light-periodic baseline is therefore a more conservative security measurement than the high-rate or bursty configurations.
 
-4. **Placement Changes The Magnitude Of Leakage, Not Its Existence**: The P1 disjoint-allocation studies show that shared-hub contention alone is enough to leak victim activity, while the P2 overlapped-allocation studies amplify that signal through partial resource overlap. Even comparatively light `P20` overlap attacks in the QAOA overlap summaries still produce nonzero waiting and substantial waited fractions, confirming that overlap is not required for leakage but does intensify it.
+4. **Placement is not an isolation guarantee when infrastructure remains shared.** P1 disjoint placement still leaks through a capacity-1 hub. In the modeled capacity-2 case, that P1 signal disappears, while P2 overlap retains leakage. Capacity and isolation boundaries matter jointly.
 
-5. **Timing Traces Support Workload Fingerprinting, Not Just Activity Detection**: The QAOA pairwise-distance and fingerprint artifacts show that timing observations can separate multiple closely related QAOA circuits from one another, not merely distinguish "busy" from "idle." This pushes the side channel from coarse workload detection toward algorithm-family fingerprinting and circuit identification.
+5. **Schedulers, allocators, tenancy models, and reconfiguration policies reshape the channel.** Phase 1.01-1.05 show that leakage is a property of the full resource-management stack, not only the circuit or physical topology. A mitigation can suppress one contention source while introducing failure, queueing, transition, or path-selection observables elsewhere.
+
+6. **Timing supports activity detection and workload fingerprinting under imperfect knowledge.** Phase 1.06 retains moderate detection without exact physical placement, and the QAOA results show separable timing structure across related circuits under the evaluated noise profiles.
 
 ### Implications for Quantum Security
 
-- Modular DQC architectures inherently leak timing information through shared hub resources, regardless of module placement strategy
-- Attackers can infer circuit structure and execution patterns via passive timing observation, with detection rates approaching 100% for communication-heavy circuits
-- The QAOA-family studies indicate that passive timing can also support fingerprinting among related algorithm instances, not only detection of victim presence
-- Mitigation strategies should focus on constant-time execution, noise injection, or fully distributed architectures without shared bottlenecks
-- Architecture design must balance performance gains against security risks, particularly for sensitive quantum algorithms
+- Compute-module separation alone is insufficient if tenants still share serialized hubs, links, communication qubits, queues, or reset pipelines.
+- The modeled attacker is active only in the sense that it submits ordinary probes; its inference is black-box and uses no victim trace or privileged scheduler state.
+- Detection results must be interpreted with probe overhead: near-saturation signals can be easy to detect but less stealthy and more disruptive.
+- Useful mitigations include increasing bottleneck capacity, enforcing module/interface isolation, reducing timing determinism, and designing schedulers that limit attacker-visible queue coupling.
+- Mitigations require end-to-end evaluation because rerouting, reservation, or isolation can replace latency leakage with failure or transition leakage.
 
 ### Future Work
 
@@ -350,12 +432,31 @@ python run_attack_tier1_p2_static_r1_timescale_sweep.py
 python run_attack_tier1_p2_static_probe3_rate_sweep.py
 python qaoa_family_best_attack_overlap_p2.py
 
+# Phase 1 black-box baselines and sensitivity sweeps
+python run_attack_tier1_p1_static_blackbox_baseline.py
+python run_attack_tier1_p1_static_blackbox_window_baseline.py
+python run_atack_tier1_p1_static_blackbox_observation_window_sweep.py
+python run_atack_tier1_p1_static_blackbox_probe_rate_sweep.py
+python run_atack_tier1_p1_static_blackbox_probe_type_sweep.py
+python run_attack_tier1_p1_static_blackbox_p1_vs_p2_placement_sweep.py
+python run_attack_tier1_p1_static_blackbox_hub_capacity_sweep.py
+python run_attack_tier1_p1_static_blackbox_random_victim_start_sweep.py
+
+# Phase 1 system-factor studies
+python phase1_01_job_module_allocation.py
+python phase1_02_tenancy_models.py
+python phase1_03_communication_qubit_allocation.py
+python phase1_03_postprocess.py
+python phase1_04_remote_operation_schedulers.py
+python phase1_05_dynamic_rerouting_remapping.py
+python phase1_06_unknown_placement_robustness.py
+
 # Plotting
 python plot_baseline_stats.py
 ```
 
 ### Generating Reports
-Results are automatically saved as JSON files and plots as PNG images.
+The original experiments write JSON summaries and PNG plots. Phase 1 additionally writes aggregate/trial/request-level CSV files. `blackbox_results/` is the compact untargeted control corpus; `blackbox_window_results/` is the complete windowed and system-factor corpus. Several scripts can be computationally expensive and may overwrite result files with the same configuration, so preserve the committed artifacts before rerunning large sweeps.
 
 ## References
 
