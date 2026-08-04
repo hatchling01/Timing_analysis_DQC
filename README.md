@@ -26,6 +26,7 @@ Key contributions include:
 - `run_attack_tier1_*.py`: Tier-1 attack simulations for different placements and probes
 - `run_attack_tier1_p1_static_blackbox_*.py`: Black-box baseline, placement, hub-capacity, observation-window, probe, timing-uncertainty, and QAOA fingerprinting studies
 - `phase1_01_*.py` through `phase1_06_*.py`: Phase 1 system-factor experiments and post-processing
+- `phase1_06_finish_random_forest_standalone.py`, `phase1_06_random_forest_fast.py`: Complete the learned Phase 1.06 analysis from saved samples without rerunning simulations
 
 ### Architecture Implementation
 - `new_arch_baseline.py`: Baseline architecture definitions
@@ -52,9 +53,14 @@ Key contributions include:
 - `blackbox_results/`: Untargeted full-run black-box control for five benchmark circuits, including raw attacker observations and victim ground truth
 - `blackbox_window_results/`: Window-aligned black-box baselines, sensitivity sweeps, Phase 1.01-1.06 system studies, and QAOA fingerprint/noise-robustness results
 
-### Dependencies
-- `netsquid_clean_env.yml`: Conda environment specification
-- `netsquid_clean_pip_freeze.txt`: Python package requirements
+### Software Requirements
+
+- Python 3.11 or compatible
+- Qiskit
+- pandas
+- NumPy
+- Matplotlib
+- scikit-learn for the optional learned classifiers
 
 ## Architectures Evaluated
 
@@ -94,9 +100,30 @@ Attacker probes shared resources (hub or entanglement services) to detect victim
 
 ### Scope and Threat Model
 
-Phase 1 asks what can be inferred when an attacker cannot inspect the victim's circuit trace, queue state, placement, or scheduler decisions. The attacker submits legal remote-operation probes and observes only its own request release and completion times. Victim-side traces are retained in the result set strictly as evaluator ground truth; they are not attacker inputs.
+Phase 1 asks what can be inferred when an attacker cannot inspect the victim's circuit trace, victim communication events, internal scheduler state, exact placement, or completion time. The attacker submits legal remote-operation probes and observes its own request behavior. The strict timing-only threat model uses release and completion timing; explicitly labeled allocator-aware analyses may additionally use failure, redirection, endpoint reuse, or assignment information. Victim-side traces are retained strictly as evaluator ground truth and are not attacker inputs.
 
 The default black-box configuration uses static-distributed execution, P1 disjoint placement, a serialized hub (`hub_max_concurrent_transfers = 1`), and a light periodic probe. The controlled sweeps then relax the attacker's start-time/placement knowledge and vary the architectural policies that determine contention.
+
+### Fixed Black-Box Attack Baseline
+
+Unless a study explicitly changes a parameter, the calibrated baseline is:
+
+- Probe 3, a low-contention periodic probe
+- Probe sequence: `h(0), h(1), x(2), x(3), z(0), z(2), cx(0,2)`
+- Remote-request offset within each round: 30 ns
+- Inter-probe period: 420 ns
+- Observation window: 20,000 ns
+- Attacker self-contention: approximately zero in the selected baseline
+- Controls: attacker-only, victim-only, and victim-plus-attacker executions
+- Primary signal: request-level excess attacker turnaround time relative to attacker-only calibration
+
+This configuration retains victim-dependent timing while keeping baseline self-contention negligible and average victim disruption in the low single-digit range.
+
+### Architecture and Resource Model
+
+The base architecture contains five quantum modules connected through a centralized remote-operation hub; the system-factor studies vary module count, hub capacity, links, switch paths, communication interfaces, alternate routes, and internal allocation policies. A cross-module gate becomes a remote-operation request that passes through arrival, queue admission, scheduling, hub/link/path acquisition, endpoint locking, service, completion, resource release, and queue re-evaluation.
+
+Phase 1 distinguishes physical co-location from overlap on an exclusive resource. Relevant sharing classes include communication qubits, endpoint locks, local-routing paths, reset/readout/feedforward pipelines, links, switch paths, hub slots, allocation queues, and reconfiguration transitions. Two tenants can share a module without a timing channel when these communication and control resources are fully isolated.
 
 ### What Is in `blackbox_results/`
 
@@ -134,6 +161,78 @@ The top-level result families are:
 | `qaoa_circuit_fingerprinting/` | Can black-box timing distinguish QAOA circuits with 5-15 qubits? |
 | `qaoa_circuit_noise_robustness/` | Does the QAOA timing signature persist under timestamp and scheduler noise? |
 
+### Experiment 1.1: Job-to-Module Allocation
+
+**Question:** Does leakage remain when jobs are dynamically allocated instead of manually fixed to P1 or P2?
+
+`phase1_01_job_module_allocation.py` evaluates fixed P1/P2, uniform-random, load-balanced, communication-minimizing, communication-consolidating, endpoint-separation, and first-fit-admission policies. The main outputs are `job_module_allocation_trial_summary.csv`, `job_module_allocation_allocations.csv`, `job_module_allocation_sharing_summary.csv`, `job_module_allocation_policy_summary.csv`, `job_module_allocation_rejection_summary.csv`, and `job_module_allocation_knowledge_views.csv`.
+
+Allocation changes the probability of exposure rather than the underlying channel. Communication consolidation, first fit, and fixed P2 tend to create endpoint overlap; load balancing, communication minimization, endpoint separation, and fixed P1 more often avoid it. Uniform random allocation produces both classes. Endpoint separation lowers exposure but can increase fragmentation and rejection. Across the policy summaries, accepted jobs retain a strong signal when they overlap on an exclusive endpoint or switch path, while hub-only sharing with sufficient capacity is negligible.
+
+> **Experiment 1.1 conclusion:** Allocation determines how often exposure occurs; once tenants share an exclusive communication resource, the timing channel remains.
+
+### Experiment 1.2: Tenancy and Module Sharing
+
+**Question:** Which forms of multi-tenancy allow endpoint occupancy to become attacker-visible?
+
+`phase1_02_tenancy_models.py` and `phase1_02_time_sliced_rerun.py` compare module-exclusive tenancy, spatial compute-qubit partitioning, shared and dedicated communication interfaces, time-sliced module sharing, and hybrid sharing of reset/readout/feedforward resources. Each configuration is evaluated with a four-slot hub and a `node_only` control so node-side leakage can be distinguished from global hub serialization. The main summary families cover trials, endpoint wait, resource blocking/effects, admission, utilization, and configuration; corrected time-sliced results are under `time_sliced_corrected/`.
+
+Module-exclusive tenancy removes direct shared-module occupancy. Shared communication qubits, module-wide locks, shared local routing, and shared reset/control pipelines preserve measurable leakage, whereas a fully isolated shared module can produce zero leakage. Dedicated interfaces reduce leakage at the cost of admission flexibility. The corrected time-sliced rerun applies identical slice rules to attacker-only, victim-only, and combined controls: time slicing alone is not the cause, but shared internal resources during active slices still leak.
+
+> **Experiment 1.2 conclusion:** Module sharing is not sufficient by itself; leakage requires overlap on an exclusive internal communication or control resource.
+
+### Experiment 1.3: Dynamic Communication-Qubit Allocation
+
+**Question:** Does dynamic communication-qubit assignment introduce, remove, or reshape the channel?
+
+`phase1_03_communication_qubit_allocation.py` evaluates static assignment, first available, round robin, random allocation, per-tenant reservation, a shared global pool, priority, fair share, coherence-aware, and predicted-demand allocation. `phase1_03_postprocess.py` separates positive delay, negative speedup, failure-only leakage, combined observable changes, successful-run slowdown, physical utilization, EPR use/wastage, and timing-only versus learned detection.
+
+One communication qubit per module creates strong pressure; two remove most endpoint-specific pressure, and four or eight eliminate ordinary end-to-end queue-delay leakage in the tested configurations. Shared pools improve utilization but expose queue and reuse behavior. Per-tenant reservation removes differential queue timing but can convert pressure into failures, idle capacity, and slowdown. Reset occupancy creates a reuse-delay channel, while EPR prefetching can appear as negative timing changes or speedups and introduces measurable wastage.
+
+The threat-model boundary matters here: a timing-only attacker uses end-to-end request timing, while an allocator-aware attacker may use endpoint identity, reuse delay, failure, reassignment, redirection, or EPR state. Sufficient overprovisioning can remove the timing-only channel even when allocator-visible features retain a weaker signal.
+
+> **Experiment 1.3 conclusion:** Capacity and allocation policy determine whether contention appears as delay, speedup, failure, redirection, reuse, or wasted capacity.
+
+### Experiment 1.4: Remote-Operation Scheduling
+
+**Question:** Is the timing fingerprint an artifact of a particular scheduler?
+
+`phase1_04_remote_operation_schedulers.py` compares static circuit-layer scheduling, FCFS, dependency-ready, shortest-operation-first, longest-waiting-first, round-robin tenants, weighted fair queueing, priority, coherence-deadline, link-aware, endpoint-aware, and randomized arbitration. Outputs include policy/capacity/queue/tenancy/communication-qubit summaries, priority and decision-interval studies, lookahead, preemption, prefetch, fingerprint stability, phase visibility, non-ML and random-forest metrics, plus compressed request logs.
+
+Leakage is scheduler-sensitive but not scheduler-specific. FCFS is among the most revealing policies; link-aware and endpoint-aware scheduling reduce timing magnitude. Fair, priority, dependency-ready, and randomized policies reshape rather than eliminate the fingerprint. Shallow queues convert contention into rejection, deep queues convert it into waiting, and increasing hub capacity alone is insufficient when links or endpoints remain narrow. Preemption and EPR prefetching can improve completion while increasing transition and phase-boundary visibility.
+
+> **Experiment 1.4 conclusion:** Multiple realistic schedulers preserve measurable fingerprints, although the most useful attacker features depend on the policy.
+
+### Experiment 1.5: Rerouting and Resource Remapping
+
+**Question:** Does changing the path or endpoint during execution break the attack?
+
+`phase1_05_dynamic_rerouting_remapping.py` evaluates static paths, per-job and per-operation selection, load- and failure-triggered rerouting, communication-qubit reassignment, hub migration, and victim-module migration. The output families cover mechanisms, decisions, frequency, path count, thresholds, switching and state-transfer cost, before/transient/after segments, change detection, path localization, fingerprint stability, events, and compressed attacker/request logs.
+
+Load-triggered rerouting and hub migration retain much of the original signal. Communication-qubit reassignment produces a sharp transient; failure-triggered rerouting is especially visible during transition. Per-job and per-operation policies create persistent path-dependent fingerprints. Frequent switching reduces exact trace stability without removing aggregate leakage. Victim-module migration most strongly reduces steady-state exposure, but its transition and state-transfer overhead remain observable. Detecting a change is generally easier than localizing the new path.
+
+> **Experiment 1.5 conclusion:** Remapping can reduce a stable path fingerprint, but reconfiguration itself becomes a timing channel.
+
+### Experiment 1.6: Unknown Placement and Allocation State
+
+**Question:** Can the attacker detect a victim without knowing either tenant's physical placement or the active allocator/scheduler policy?
+
+`phase1_06_unknown_placement_robustness.py` evaluates exact placement knowledge, attacker-only placement knowledge, logical identifiers only, both mappings unknown, and known/unknown control policies. Probe strategies include fixed one-shot, candidate cycling, knowledge-guided one-shot, and adaptive explore/exploit. Result files cover physical and strategy trials, paired rules, knowledge/allocator/scheduler summaries, features/samples, victim-presence and sharing-class metrics, predictions, false positives, and probe selection.
+
+The simple paired rule retains approximately 53.6%-55.8% detection across the evaluated strategies. The random-forest victim-presence classifier reaches approximately 73.9%-75.1% accuracy across knowledge levels. Placement-class accuracy is approximately 87.5%-88.6% with exact mappings and approximately 67.2%-69.4% when both mappings are unknown. Exact placement is therefore more important for identifying the sharing class than for detecting victim activity. Fixed one-shot probing has the best specificity and approximately the best overall learned accuracy; candidate cycling is the strongest simple non-ML alternative; adaptive probing improves sensitivity but increases false positives and disruption, and matches the oracle-selected probe in only about one-third of trials.
+
+The optional learned analysis can be completed from existing `unknown_placement_samples.csv` without rerunning physical trials:
+
+```bash
+python phase1_06_finish_random_forest_standalone.py
+python phase1_06_random_forest_fast.py
+```
+
+Both entry points write `unknown_placement_random_forest_metrics.csv` and `unknown_placement_random_forest_predictions.csv`.
+`phase1_06_random_forest_fast.py` is the supplied compatibility filename and currently contains the same standalone implementation as `phase1_06_finish_random_forest_standalone.py`.
+
+> **Experiment 1.6 conclusion:** Exact placement metadata is unnecessary for victim detection, but it improves sharing-class inference and targeted probe selection.
+
 ### Phase 1 Baseline Signal
 
 Aligning the attacker to a coarse 20 µs observation window changes the result materially. The windowed baseline uses the same five workloads, P1 disjoint placement, a serialized hub, and a light periodic probe:
@@ -163,6 +262,83 @@ The ordering is not perfectly determined by operation count—timing and burst s
 6. **Incomplete placement knowledge reduces precision but does not erase detection.** Across the Phase 1.06 knowledge conditions, paired detection remains approximately 53.6%-55.8% for the evaluated one-shot and adaptive strategies, with the first observable change appearing after roughly 23-24 probes on average. Adaptive exploration has the highest paired detection rate (55.8%) without requiring exact physical placement.
 
 7. **The signal supports circuit fingerprinting and survives moderate noise.** QAOA circuits from 5 through 15 qubits retain distinct excess-latency structures. The noise study shows mean signals remain close to their clean values under the evaluated 5 ns and 20 ns timestamp/scheduler perturbations; 50 ns combined noise increases variance but does not uniformly collapse the workload ordering.
+
+### Combined Causal Model
+
+```text
+Allocation policy
+    -> physical tenant placement
+    -> overlap on exclusive resources
+    -> communication-qubit and endpoint allocation
+    -> scheduler, queue, and routing behavior
+    -> attacker-visible timing, failure, reuse, and transition signals
+```
+
+Leakage is strongest when tenants share communication qubits, endpoint locks, local routes, reset/readout/feedforward pipelines, links, switch paths, serialized hub service, allocation queues, or reconfiguration transitions. Multi-tenancy, module co-location, logical-qubit sharing, dynamic allocation, scheduling, or rerouting are not independently sufficient. The actual isolation boundary determines exposure.
+
+Architecture also changes the *form* of the signal: queue delay, tail latency, failure/rejection, redirection, endpoint reuse, EPR-induced speedup, fairness periodicity, dependency bursts, phase boundaries, rerouting transients, or state-transfer overhead. A defense must therefore check all observables rather than only average waiting time.
+
+### Security-Performance Tradeoffs
+
+- Endpoint separation reduces overlap but increases fragmentation and rejection.
+- Dedicated interfaces consume additional communication qubits and reduce admission flexibility.
+- Reservations reduce differential queue timing but can strand capacity or expose failures.
+- Deep queues improve admission while increasing waiting-time leakage; shallow queues expose rejection.
+- Overprovisioning removes endpoint pressure but increases hardware cost and may leave link/hub bottlenecks.
+- Link-aware and endpoint-aware schedulers reduce timing magnitude while changing throughput and fairness.
+- EPR prefetching improves completion but exposes availability, wastage, and phase state.
+- Module migration reduces steady-state exposure but adds transition and state-transfer leakage.
+
+### Phase 1 Decision Gate
+
+Phase 1 proceeds to the stronger attacker-capability study if at least one channel survives dynamic placement, at least two realistic scheduler policies, unknown victim placement, low attacker self-contention, and acceptable victim disruption.
+
+| Criterion | Result | Evidence |
+|---|---|---|
+| Dynamic placement | **Passed** | Leakage survives when allocation creates overlap on an exclusive endpoint, link, path, or hub resource. |
+| Multiple realistic schedulers | **Passed** | Signals remain under FCFS, round robin, dependency-ready, fair, priority, randomized, and other policies. |
+| Unknown victim placement | **Passed** | Victim-presence accuracy remains about 74%-75%, compared with 50% chance. |
+| Low attacker self-contention | **Passed** | Probe 3 at a 420 ns period has approximately zero attacker-only waiting in the calibrated baseline. |
+| Acceptable victim disruption | **Passed** | The preferred light-periodic baseline averages 1.037x victim slowdown; more aggressive probes are reported separately. |
+
+> **Decision:** Phase 1 passes the gate. Proceed to the stronger security study while preserving separate timing-only and allocator-aware threat models.
+
+### Strongest Defensible Phase 1 Claim
+
+> Dynamic placement, communication-qubit allocation, scheduler policy, and rerouting reshape the probability and manifestation of exposure but do not generally eliminate black-box timing leakage. The channel persists when tenants overlap on an exclusive communication resource, even under unknown placement and low-contention probing. Conversely, shared-module execution can be leakage-free when communication qubits, endpoint locks, routing paths, and reset/control pipelines are fully isolated.
+
+### Known Limitations
+
+1. Gate, communication, reset, and switching times are fixed or simplified.
+2. Communication qubits, endpoints, links, switches, and reset resources are architectural abstractions.
+3. EPR generation, prefetch, and expiration are simplified.
+4. Physical noise, drift, and calibration variability remain limited to the modeled profiles.
+5. Dependency and coherence-deadline models are simplified.
+6. Allocator and scheduler policies are synthetic rather than vendor implementations.
+7. Some sub-sweeps use limited random trials.
+8. The attacker uses a fixed probe family with a small set of strategies.
+9. Learned classifiers are trained on simulator-derived features.
+10. No direct hardware validation has been performed.
+11. Some learned attacks use allocator-visible features beyond end-to-end timing.
+12. Reconfiguration localization is weaker than change detection.
+13. Migration assumes state transfer is supported by the abstraction.
+
+### Reproducibility Checklist
+
+- Record the Git commit, Python version, package versions, configurations, and random seeds.
+- Preserve all QASM workloads and representative compressed request logs.
+- Apply identical conditions to attacker-only, victim-only, and combined controls.
+- Separate successful, failed, rejected, redirected, and partial executions.
+- Report positive delays, negative speedups, failure leakage, and combined observable changes separately.
+- Separate timing-only, allocator-aware, placement-aware, and placement-unknown attackers.
+- Condition conclusions on actual resource sharing rather than logical placement labels alone.
+- Report victim slowdown only for successful victim executions.
+- Distinguish physical utilization from aggregate resource demand.
+- Retain corrected time-sliced outputs and the Phase 1.03 postprocessed summaries.
+
+### Next Phase
+
+Phase 1 establishes channel survival. The next phase should deepen attacker-capability and defense evaluation: victim-activity detection, shared-resource inference, communication-volume estimation, workload-family and exact-circuit classification, communication-phase reconstruction, adaptive probing, robustness across system uncertainty, and mitigation using the isolation boundaries identified here. The existing QAOA fingerprinting results provide an initial circuit-classification case study rather than closing this broader question.
 
 ## Results
 
@@ -399,12 +575,7 @@ The original Experiment A studies establish the basic shared-entanglement-servic
 
 ### Environment Setup
 ```bash
-# Using conda
-conda env create -f netsquid_clean_env.yml
-conda activate netsquid-env
-
-# Or using pip
-pip install -r netsquid_clean_pip_freeze.txt
+python -m pip install qiskit pandas numpy matplotlib scikit-learn
 ```
 
 ### Running Simulations
@@ -450,6 +621,10 @@ python phase1_03_postprocess.py
 python phase1_04_remote_operation_schedulers.py
 python phase1_05_dynamic_rerouting_remapping.py
 python phase1_06_unknown_placement_robustness.py
+
+# Optional Phase 1.06 learned analysis from saved samples
+python phase1_06_finish_random_forest_standalone.py
+python phase1_06_random_forest_fast.py
 
 # Plotting
 python plot_baseline_stats.py
