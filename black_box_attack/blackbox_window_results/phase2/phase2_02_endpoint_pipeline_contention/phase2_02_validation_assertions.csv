@@ -1,0 +1,18 @@
+validation_group,assertion_name,passed,expected,observed,details
+attacker_baseline,low_self_contention,True,maximum attacker-only wait = 0 ns,0 ns,
+causal_accounting,external_delay_equals_added_stage_wait,True,maximum absolute accounting error <= 1e-9 ns,9.09494701773e-13 ns,
+isolation_controls,separate_modules_control_zero_leakage,True,maximum excess turnaround = 0 ns,0 ns,
+isolation_controls,shared_module_fully_independent_zero_leakage,True,maximum excess turnaround = 0 ns,0 ns,
+single_resource_attribution,shared_local_route_only_only_local_route,True,positive added wait only at local_route,['local_route'],
+single_resource_attribution,shared_communication_qubit_only_only_communication_qubit,True,positive added wait only at communication_qubit,['communication_qubit'],
+single_resource_attribution,shared_interconnect_port_only_only_interconnect_port,True,positive added wait only at interconnect_port,['interconnect_port'],
+single_resource_attribution,shared_reset_engine_only_only_reset_engine,True,positive added wait only at reset_engine,['reset_engine'],
+combined_endpoint_controls,shared_endpoint_without_reset_has_no_reset_wait,True,reset_engine absent from positive added-wait components,"['communication_qubit', 'local_route']",
+endpoint_locality,no_network_resource_leakage,True,zero positive added wait on network-only resources,0 positive rows,
+resource_calendar,no_illegal_resource_overlap,True,0,0,
+request_completion,all_requests_complete,True,0,0,
+request_completion,fixed_pipeline_service_time,True,205.0 ns,max error 0 ns,
+resource_lifetimes,communication_qubit_released_after_reset,True,all communication-qubit intervals released at communication_reset,0 invalid intervals,
+resource_lifetimes,port_and_switch_release_before_comm_qubit,True,0,0,
+threat_model,blackbox_output_excludes_internal_labels,True,no internal stage/resource columns,[],
+expected_progression,reset_only_weaker_than_full_endpoint,True,mean reset-only excess < mean full-pipeline excess,"reset=1.15397, full=70.873",This is an architectural progression check rather than a causal correctness invariant.

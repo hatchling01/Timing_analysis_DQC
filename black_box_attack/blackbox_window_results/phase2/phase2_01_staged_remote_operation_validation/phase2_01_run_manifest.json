@@ -1,0 +1,20 @@
+{
+  "experiment": "Phase 2.1 \u2014 Staged Remote-Operation Validation",
+  "output_directory": "blackbox_window_results/phase2/phase2_01_staged_remote_operation_validation",
+  "protocol_count": 3,
+  "protocols": [
+    "direct_remote_cx",
+    "direct_state_transfer",
+    "teleportation_state_transfer"
+  ],
+  "baseline_scenario_count": 3,
+  "single_stage_contention_scenario_count": 17,
+  "resource_lifetime_scenario_count": 2,
+  "stage_record_count": 132,
+  "resource_interval_count": 218,
+  "assertion_count": 374,
+  "passed_assertions": 374,
+  "failed_assertions": 0,
+  "all_validations_passed": true,
+  "controlled_contention_ns": 200
+}

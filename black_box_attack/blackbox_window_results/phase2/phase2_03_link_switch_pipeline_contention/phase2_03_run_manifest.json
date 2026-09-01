@@ -1,0 +1,33 @@
+{
+  "experiment": "Phase 2.3 \u2014 Link/Switch Pipeline Contention",
+  "output_directory": "blackbox_window_results/phase2/phase2_03_link_switch_pipeline_contention",
+  "seed": 2303,
+  "trials_per_scenario_workload": 10,
+  "scenario_count": 25,
+  "workload_count": 3,
+  "controlled_trial_tuple_count": 750,
+  "nominal_remote_operation_latency_ns": 249.0,
+  "attacker_period_ns": 420.0,
+  "observation_window_ns": 20000.0,
+  "interconnect_components": [
+    "controller_admission",
+    "source_link_interface",
+    "switch_arbiter",
+    "switch_path",
+    "transmission_segment",
+    "destination_link_interface"
+  ],
+  "capacity_interpretation": {
+    "shared_pool_capacity_1": "one simultaneous physical lane/path/channel",
+    "shared_pool_capacity_2": "two simultaneous pooled physical lanes/paths/channels",
+    "partitioned_capacity_2": "two lanes with one statically assigned per tenant"
+  },
+  "request_record_count": 63076,
+  "stage_record_count": 693836,
+  "resource_interval_count": 693836,
+  "blackbox_probe_record_count": 36000,
+  "validation_assertion_count": 25,
+  "passed_assertions": 25,
+  "failed_assertions": 0,
+  "all_validations_passed": true
+}

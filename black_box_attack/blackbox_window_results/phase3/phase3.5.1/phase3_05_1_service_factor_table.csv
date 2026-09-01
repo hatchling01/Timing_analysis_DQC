@@ -1,0 +1,3 @@
+service_class,runtime_mode,post_pipeline,retry_limit,distillation_depth,raw_pairs_required,controlled_difference
+low_latency,custom_epr,generic_epr,4,0,1,distillation depth / required raw-pair count only
+high_fidelity,custom_epr,generic_epr,4,2,4,distillation depth / required raw-pair count only

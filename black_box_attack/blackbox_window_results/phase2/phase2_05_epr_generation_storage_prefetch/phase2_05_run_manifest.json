@@ -1,0 +1,37 @@
+{
+  "experiment": "Phase 2.5 \u2014 EPR Generation, Storage, and Prefetch",
+  "output_directory": "blackbox_window_results/phase2/phase2_05_epr_generation_storage_prefetch",
+  "trial_count_per_workload_configuration": 10,
+  "scenario_count": 12,
+  "workload_count": 3,
+  "scenario_workload_trial_tuples": 360,
+  "probe_period_ns": 420.0,
+  "observation_window_ns": 20000.0,
+  "remote_critical_latency_after_epr_ns": 150.0,
+  "remote_cleanup_latency_after_epr_ns": 270.0,
+  "conceptual_modes": [
+    "on_demand",
+    "prefetch",
+    "buffered",
+    "reserved"
+  ],
+  "validation_assertion_count": 15,
+  "passed_assertions": 15,
+  "failed_assertions": 0,
+  "all_validations_passed": true,
+  "blackbox_columns": [
+    "trace_id",
+    "probe_index",
+    "release_ns",
+    "attacker_only_success",
+    "combined_success",
+    "attacker_only_completion_ns",
+    "combined_completion_ns",
+    "attacker_only_turnaround_ns",
+    "combined_turnaround_ns",
+    "excess_turnaround_ns",
+    "affected",
+    "speedup",
+    "failure_transition"
+  ]
+}

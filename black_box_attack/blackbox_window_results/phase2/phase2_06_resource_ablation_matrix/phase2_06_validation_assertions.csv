@@ -1,0 +1,12 @@
+validation_group,assertion_name,passed,expected,observed,details
+matrix,configuration_count,True,128,128,
+matrix,everything_isolated_present,True,True,True,
+matrix,everything_shared_present,True,True,True,
+negative_control,everything_isolated_has_no_cross_tenant_timing_change,True,0 affected and 0 timing change,"affected=0.0, abs_change=0.0",
+positive_control,everything_shared_produces_nonzero_channel,True,> 0 affected fraction,0.9791666666666669,
+attribution,private_resources_have_zero_cross_tenant_wait,True,0,0,
+blackbox,blackbox_master_has_only_timing_plus_evaluator_keys,True,no internal columns,[],
+numerics,trial_summary_finite,True,True,True,
+mechanism,shared_epr_pool_alone_exposes_persistent_state,True,> 0 persistent EPR state fraction,0.8125,
+matrix,all_single_resource_ablations_present,True,all seven singles,[],
+numerics,victim_slowdown_positive,True,True,True,

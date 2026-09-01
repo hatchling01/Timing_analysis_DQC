@@ -1,0 +1,23 @@
+scenario_name,link_capacity,shared_backend_components,backend_capacity,description,expected_mechanism,scenario_family
+isolated_backend_link1,1,,1,All measurement/feedforward/reset resources are tenant-dedicated.,link_only,isolated_backend
+shared_readout_capacity1_link1,1,readout_engine,1,One cross-tenant readout/measurement lane.,readout_queueing,readout
+shared_readout_capacity2_link1,1,readout_engine,2,Two pooled readout/measurement lanes.,readout_two_lane_pool,readout
+shared_feedforward_capacity1_link1,1,feedforward_engine,1,One cross-tenant classical feedforward lane.,feedforward_queueing,feedforward
+shared_feedforward_capacity2_link1,1,feedforward_engine,2,Two pooled classical feedforward lanes.,feedforward_two_lane_pool,feedforward
+shared_conditional_control_capacity1_link1,1,conditional_control_engine,1,One cross-tenant conditional-control lane.,conditional_control_queueing,conditional_control
+shared_reset_capacity1_link1,1,reset_engine,1,One shared post-completion reset/recovery engine.,reset_reuse,reset
+shared_reset_capacity2_link1,1,reset_engine,2,Two pooled post-completion reset/recovery engines.,reset_two_lane_pool,reset
+shared_measurement_feedback_stack_capacity1_link1,1,readout_engine;feedforward_engine;conditional_control_engine,1,"Shared measurement, feedforward, and conditional-control stack.",measurement_feedback_stack,measurement_feedback_stack
+shared_full_backend_capacity1_link1,1,readout_engine;feedforward_engine;conditional_control_engine;reset_engine,1,All back-end measurement/feedforward/reset resources shared.,full_backend,full_backend
+shared_full_backend_capacity2_link1,1,readout_engine;feedforward_engine;conditional_control_engine;reset_engine,2,Two pooled lanes for every back-end resource.,full_backend_two_lane_pool,full_backend
+isolated_backend_link2,2,,1,All measurement/feedforward/reset resources are tenant-dedicated.,fully_isolated,isolated_backend
+shared_readout_capacity1_link2,2,readout_engine,1,One cross-tenant readout/measurement lane.,readout_queueing,readout
+shared_readout_capacity2_link2,2,readout_engine,2,Two pooled readout/measurement lanes.,readout_two_lane_pool,readout
+shared_feedforward_capacity1_link2,2,feedforward_engine,1,One cross-tenant classical feedforward lane.,feedforward_queueing,feedforward
+shared_feedforward_capacity2_link2,2,feedforward_engine,2,Two pooled classical feedforward lanes.,feedforward_two_lane_pool,feedforward
+shared_conditional_control_capacity1_link2,2,conditional_control_engine,1,One cross-tenant conditional-control lane.,conditional_control_queueing,conditional_control
+shared_reset_capacity1_link2,2,reset_engine,1,One shared post-completion reset/recovery engine.,reset_reuse,reset
+shared_reset_capacity2_link2,2,reset_engine,2,Two pooled post-completion reset/recovery engines.,reset_two_lane_pool,reset
+shared_measurement_feedback_stack_capacity1_link2,2,readout_engine;feedforward_engine;conditional_control_engine,1,"Shared measurement, feedforward, and conditional-control stack.",measurement_feedback_stack,measurement_feedback_stack
+shared_full_backend_capacity1_link2,2,readout_engine;feedforward_engine;conditional_control_engine;reset_engine,1,All back-end measurement/feedforward/reset resources shared.,full_backend,full_backend
+shared_full_backend_capacity2_link2,2,readout_engine;feedforward_engine;conditional_control_engine;reset_engine,2,Two pooled lanes for every back-end resource.,full_backend_two_lane_pool,full_backend

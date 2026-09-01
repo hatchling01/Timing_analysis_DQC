@@ -1,0 +1,11 @@
+validation_group,assertion_count,passed_count,failed_count,pass_rate
+baseline,1,1,0,1.0
+blackbox_boundary,1,1,0,1.0
+capacity,1,1,0,1.0
+causal_accounting,1,1,0,1.0
+completion,1,1,0,1.0
+endpoint_isolation,1,1,0,1.0
+negative_controls,2,2,0,1.0
+resource_calendar,1,1,0,1.0
+resource_lifetimes,4,4,0,1.0
+single_resource_attribution,12,12,0,1.0

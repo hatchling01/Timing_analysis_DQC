@@ -1,0 +1,5 @@
+config_name,placement_name,hub_max_concurrent_transfers,victim_modules,attacker_modules,shared_modules,shared_module_count,observation_duration_ns,probe_round_period_ns,total_attacker_remote_requests,first_remote_probe_release_ns,last_remote_probe_release_ns,realized_remote_probe_rate_per_us
+p1_disjoint_capacity_1,P1_disjoint,1,"module_0,module_1,module_2","module_3,module_4",,0,20000,420,48,1030,20770,2.4
+p1_disjoint_capacity_2,P1_disjoint,2,"module_0,module_1,module_2","module_3,module_4",,0,20000,420,48,1030,20770,2.4
+p2_overlap_capacity_1,P2_one_module_overlap,1,"module_0,module_1,module_2","module_2,module_3",module_2,1,20000,420,48,1030,20770,2.4
+p2_overlap_capacity_2,P2_one_module_overlap,2,"module_0,module_1,module_2","module_2,module_3",module_2,1,20000,420,48,1030,20770,2.4

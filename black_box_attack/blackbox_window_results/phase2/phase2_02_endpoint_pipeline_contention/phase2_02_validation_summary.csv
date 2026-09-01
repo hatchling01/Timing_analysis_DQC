@@ -1,0 +1,12 @@
+validation_group,assertion_count,passed_count,failed_count,pass_rate
+attacker_baseline,1,1,0,1.0
+causal_accounting,1,1,0,1.0
+combined_endpoint_controls,1,1,0,1.0
+endpoint_locality,1,1,0,1.0
+expected_progression,1,1,0,1.0
+isolation_controls,2,2,0,1.0
+request_completion,2,2,0,1.0
+resource_calendar,1,1,0,1.0
+resource_lifetimes,2,2,0,1.0
+single_resource_attribution,4,4,0,1.0
+threat_model,1,1,0,1.0

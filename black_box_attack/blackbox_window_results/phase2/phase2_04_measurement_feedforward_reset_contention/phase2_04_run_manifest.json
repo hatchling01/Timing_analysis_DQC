@@ -1,0 +1,38 @@
+{
+  "experiment": "Phase 2.4 \u2014 Measurement, Feedforward, and Reset Contention",
+  "output_directory": "blackbox_window_results/phase2/phase2_04_measurement_feedforward_reset_contention",
+  "trial_count_per_workload_configuration": 10,
+  "scenario_count": 22,
+  "workload_count": 3,
+  "scenario_workload_trial_tuples": 660,
+  "probe_period_ns": 420.0,
+  "observation_window_ns": 20000.0,
+  "critical_path_nominal_latency_ns": 265.0,
+  "postcompletion_reset_service_ns": 120.0,
+  "cleanup_nominal_latency_ns": 385.0,
+  "link_capacities": [
+    1,
+    2
+  ],
+  "backend_components": [
+    "readout_engine",
+    "feedforward_engine",
+    "conditional_control_engine",
+    "reset_engine"
+  ],
+  "validation_assertion_count": 22,
+  "passed_assertions": 22,
+  "failed_assertions": 0,
+  "all_validations_passed": true,
+  "blackbox_columns": [
+    "trace_id",
+    "probe_index",
+    "release_ns",
+    "attacker_only_completion_ns",
+    "combined_completion_ns",
+    "attacker_only_turnaround_ns",
+    "combined_turnaround_ns",
+    "excess_turnaround_ns",
+    "affected"
+  ]
+}

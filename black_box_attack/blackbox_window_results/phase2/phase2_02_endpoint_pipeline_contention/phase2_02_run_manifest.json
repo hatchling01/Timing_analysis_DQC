@@ -1,0 +1,48 @@
+{
+  "experiment": "Phase 2.2 \u2014 Endpoint Pipeline Contention",
+  "output_directory": "blackbox_window_results/phase2/phase2_02_endpoint_pipeline_contention",
+  "seed": 2202,
+  "trials_per_scenario_workload": 12,
+  "scenario_count": 8,
+  "workload_count": 3,
+  "controlled_trial_tuple_count": 288,
+  "attacker_period_ns": 420.0,
+  "observation_window_ns": 20000.0,
+  "nominal_pipeline_latency_ns": 205.0,
+  "stage_durations_ns": {
+    "local_route_acquisition": 10.0,
+    "communication_qubit_load": 20.0,
+    "interconnect_port_acquisition": 10.0,
+    "switch_path_acquisition": 15.0,
+    "intermodule_transfer": 80.0,
+    "receiver_side_gate": 30.0,
+    "communication_reset": 40.0
+  },
+  "request_record_count": 26559,
+  "stage_record_count": 185913,
+  "resource_interval_count": 185913,
+  "attacker_probe_comparison_count": 13824,
+  "validation_assertion_count": 17,
+  "passed_assertions": 17,
+  "failed_assertions": 0,
+  "all_validations_passed": true,
+  "blackbox_attacker_fields": [
+    "scenario_name",
+    "workload_name",
+    "trial_id",
+    "probe_index",
+    "attacker_release_ns",
+    "baseline_completion_ns",
+    "combined_completion_ns",
+    "baseline_turnaround_ns",
+    "combined_turnaround_ns",
+    "excess_turnaround_ns",
+    "affected"
+  ],
+  "evaluator_only_outputs": [
+    "phase2_02_stage_timeline.csv.gz",
+    "phase2_02_resource_intervals.csv.gz",
+    "phase2_02_attacker_evaluator_comparison.csv.gz",
+    "phase2_02_stage_wait_comparison.csv.gz"
+  ]
+}

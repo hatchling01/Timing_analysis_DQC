@@ -1,0 +1,14 @@
+validation_group,assertion_count,passed_count,failed_count,pass_rate
+baseline,1,1,0,1.0
+blackbox_boundary,1,1,0,1.0
+capacity,4,4,0,1.0
+causal_accounting,1,1,0,1.0
+completion,2,2,0,1.0
+critical_path,3,3,0,1.0
+isolation,1,1,0,1.0
+link_control,1,1,0,1.0
+negative_control,1,1,0,1.0
+protocol_dependence,1,1,0,1.0
+reset_reuse,2,2,0,1.0
+resource_calendar,1,1,0,1.0
+single_resource_attribution,3,3,0,1.0

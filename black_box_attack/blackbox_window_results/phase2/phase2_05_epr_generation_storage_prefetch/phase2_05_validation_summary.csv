@@ -1,0 +1,13 @@
+validation_group,assertion_count,passed_count,failed_count,pass_rate
+blackbox_boundary,1,1,0,1.0
+causal_isolation,1,1,0,1.0
+generation_capacity,1,1,0,1.0
+generation_failure,1,1,0,1.0
+isolation_control,2,2,0,1.0
+pair_lifecycle,2,2,0,1.0
+pair_lifetime,1,1,0,1.0
+persistent_state,1,1,0,1.0
+pipeline_timing,1,1,0,1.0
+request_integrity,1,1,0,1.0
+reservation,1,1,0,1.0
+storage_capacity,2,2,0,1.0

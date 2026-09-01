@@ -1,0 +1,5 @@
+attacker_source_module,candidate_region_index,candidate_probe_region,attacker_knows_probe_region,victim_region_hidden_from_attacker
+module_0,0,module_1,True,True
+module_0,1,module_2,True,True
+module_0,2,module_3,True,True
+module_0,3,module_4,True,True

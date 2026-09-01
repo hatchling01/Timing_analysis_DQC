@@ -1,0 +1,16 @@
+{
+  "qaoa_label": "qaoa_n12",
+  "num_qubits": 12,
+  "qasm_file": "qaoa_nativegates_ibm_qiskit_opt3_12.qasm",
+  "qasm_path": "/home/hatchling/tmp_mamba/black_box_attack/qaoa_nativegates_ibm_qiskit_opt3_12.qasm",
+  "circuit_depth_evaluator_only": 35,
+  "circuit_size_evaluator_only": 234,
+  "trace_event_count_evaluator_only": 235,
+  "cross_module_operation_count_evaluator_only": 25,
+  "cx_count_evaluator_only": 48,
+  "rz_count_evaluator_only": 114,
+  "sx_count_evaluator_only": 60,
+  "x_count_evaluator_only": 0,
+  "measure_count_evaluator_only": 12,
+  "operation_counts_json_evaluator_only": "{\"barrier\": 1, \"cx\": 48, \"measure\": 12, \"rz\": 114, \"sx\": 60}"
+}

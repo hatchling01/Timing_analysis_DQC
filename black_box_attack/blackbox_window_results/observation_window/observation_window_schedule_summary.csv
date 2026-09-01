@@ -1,0 +1,6 @@
+window_name,observation_duration_ns,total_probe_rounds,total_attacker_remote_requests,first_remote_probe_release_ns,last_remote_probe_release_ns,realized_remote_probe_rate_per_us
+window_5us_short,5000,12,12,1030,5650,2.4
+window_10us_medium,10000,24,24,1030,10690,2.4
+window_20us_baseline,20000,48,48,1030,20770,2.4
+window_30us_long,30000,72,72,1030,30850,2.4
+window_40us_extended,40000,96,96,1030,40930,2.4

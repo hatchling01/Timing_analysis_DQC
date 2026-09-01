@@ -1,0 +1,17 @@
+protocol_context,split,phase_label,probe_count,mean_excess_ns,mean_abs_excess_ns,delayed_fraction,failure_transition_fraction
+direct_coherent_all_shared,test,dense_remote,284,1289.9223839553974,1289.9223839553974,0.9577464788732394,0.0
+direct_coherent_all_shared,test,local_compute,256,945.0242549249139,945.0242549249137,0.64453125,0.0
+direct_coherent_all_shared,test,sparse_remote,284,799.1260577565204,799.1260577565204,0.7922535211267606,0.0
+direct_coherent_all_shared,test,synchronization_bursty,232,1679.9710852771823,1679.9710852771823,0.9698275862068966,0.0
+direct_coherent_all_shared,train,dense_remote,486,1529.660458090387,1529.660458090387,0.9670781893004116,0.0
+direct_coherent_all_shared,train,local_compute,642,996.2333537426023,996.2333537426025,0.559190031152648,0.0
+direct_coherent_all_shared,train,sparse_remote,556,1095.9519900439454,1095.9519900439454,0.7949640287769785,0.0
+direct_coherent_all_shared,train,synchronization_bursty,716,1871.1423919429956,1871.1423919429956,0.9664804469273743,0.0
+entanglement_assisted_all_shared,test,dense_remote,284,92.7550569110984,92.7550569110984,0.2992957746478873,0.0
+entanglement_assisted_all_shared,test,local_compute,256,28.78987428146769,28.78987428146769,0.0859375,0.0
+entanglement_assisted_all_shared,test,sparse_remote,284,16.948975944403614,16.948975944403614,0.11619718309859155,0.0
+entanglement_assisted_all_shared,test,synchronization_bursty,232,351.87734750749576,351.87734750749576,0.8879310344827587,0.0
+entanglement_assisted_all_shared,train,dense_remote,486,74.82706202144689,74.82706202144689,0.3168724279835391,0.0
+entanglement_assisted_all_shared,train,local_compute,642,81.79070174982421,81.79070174982421,0.16355140186915887,0.0
+entanglement_assisted_all_shared,train,sparse_remote,556,93.50598310601646,93.50598310601646,0.20323741007194246,0.0
+entanglement_assisted_all_shared,train,synchronization_bursty,716,378.629556516629,378.629556516629,0.8743016759776536,0.0

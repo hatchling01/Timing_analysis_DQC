@@ -1,0 +1,13 @@
+protocol_context,graph_mode,model_name,presence_fraction_threshold,training_exact_graph_match,training_mean_edge_f1,training_mean_edge_jaccard
+direct_coherent_dynamic_graph,edge_localized,hist_gradient_boosting,0.04,0.9761904761904762,0.9965986394557824,0.9940476190476191
+direct_coherent_dynamic_graph,edge_localized,logistic_regression,0.04,0.3333333333333333,0.8140589569160998,0.7214285714285713
+direct_coherent_dynamic_graph,edge_localized,random_forest,0.075,1.0,1.0,1.0
+direct_coherent_dynamic_graph,global_only_control,hist_gradient_boosting,0.05,1.0,1.0,1.0
+direct_coherent_dynamic_graph,global_only_control,logistic_regression,0.05,0.07142857142857142,0.6533824640967498,0.5218253968253969
+direct_coherent_dynamic_graph,global_only_control,random_forest,0.03,0.9761904761904762,0.992063492063492,0.9880952380952381
+entanglement_assisted_dynamic_graph,edge_localized,hist_gradient_boosting,0.02,1.0,1.0,1.0
+entanglement_assisted_dynamic_graph,edge_localized,logistic_regression,0.075,0.6904761904761905,0.9470143613000755,0.9099206349206348
+entanglement_assisted_dynamic_graph,edge_localized,random_forest,0.05,0.9761904761904762,0.9965986394557824,0.9940476190476191
+entanglement_assisted_dynamic_graph,global_only_control,hist_gradient_boosting,0.02,1.0,1.0,1.0
+entanglement_assisted_dynamic_graph,global_only_control,logistic_regression,0.04,0.07142857142857142,0.6288926681783825,0.49761904761904757
+entanglement_assisted_dynamic_graph,global_only_control,random_forest,0.04,0.9761904761904762,0.9952380952380951,0.992063492063492

@@ -1,0 +1,5 @@
+config_name,placement_name,hub_max_concurrent_transfers,shared_module_count,workload_count,average_excess_latency_ns,average_total_signal_ns,average_contention_fraction,workloads_with_signal,average_victim_slowdown_ratio,maximum_victim_slowdown_ratio,attacker_self_wait_ns,average_signal_retention_vs_capacity_1,average_signal_difference_vs_p1_ns,workloads_restored_over_p1
+p1_disjoint_capacity_1,P1_disjoint,1,0,5,6670.166666666667,320168.0,0.5791666666666666,5,1.0366954461501492,1.0728134424816889,0.0,1.0,0.0,0
+p1_disjoint_capacity_2,P1_disjoint,2,0,5,0.0,0.0,0.0,0,1.0,1.0,0.0,0.0,0.0,0
+p2_overlap_capacity_1,P2_one_module_overlap,1,1,5,6670.166666666667,320168.0,0.5791666666666666,5,1.0366954461501492,1.0728134424816889,0.0,1.0,0.0,0
+p2_overlap_capacity_2,P2_one_module_overlap,2,1,5,1631.3958333333335,78307.0,0.3791666666666667,5,1.0102152248690872,1.0212765957446808,0.0,0.5846057158768683,78307.0,5

@@ -1,0 +1,9 @@
+stage_index,stage_name,causal_component,duration_ns,critical_path,external_completion_here,acquire_held,acquire_scoped,require_held,release_held,description
+0,communication_qubit_acquisition,communication_qubit,20.0,True,False,communication_qubit,,,,Acquire the tenant-dedicated communication qubit.
+1,endpoint_port_acquisition,endpoint_port,10.0,True,False,endpoint_port,,communication_qubit,,Acquire the tenant-dedicated interconnect-facing port.
+2,link_transmission,link_channel,80.0,True,False,,link_channel,communication_qubit;endpoint_port,endpoint_port,Execute the inter-module transfer on a concrete link lane.
+3,receiver_side_operation,receiver_engine,25.0,True,False,,receiver_engine,communication_qubit,,Execute the tenant-dedicated receiver-side operation.
+4,measurement_readout,readout_engine,70.0,True,False,,readout_engine,communication_qubit,,Measure/read out the protocol result.
+5,classical_feedforward,feedforward_engine,40.0,True,False,,feedforward_engine,communication_qubit,,Process and deliver the classical protocol result.
+6,conditional_control,conditional_control_engine,20.0,True,True,,conditional_control_engine,communication_qubit,,Apply the conditional receiver-side action. The remote operation is externally complete at the end of this stage.
+7,reset_recovery,reset_engine,120.0,False,False,,reset_engine,communication_qubit,communication_qubit,"Post-completion reset/recovery. It does not extend the current operation's completion time, but the communication qubit remains reserved until this stage ends."

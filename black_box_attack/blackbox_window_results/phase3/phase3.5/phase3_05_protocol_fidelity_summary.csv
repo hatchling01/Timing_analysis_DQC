@@ -1,0 +1,7 @@
+task_name,best_model,class_count,chance_accuracy,best_accuracy,best_balanced_accuracy,best_macro_f1,best_binary_roc_auc
+distillation_depth_inference,hist_gradient_boosting,3,0.3333333333333333,0.8796296296296297,0.8796296296296297,0.8809769521843824,
+protocol_inference,hist_gradient_boosting,5,0.2,0.5833333333333334,0.5833333333333334,0.5967719985996227,
+protocol_label_only_control,random_forest,5,0.2,0.2,0.19999999999999998,0.19797979797979798,
+retry_policy_inference,logistic_regression,3,0.3333333333333333,0.6018518518518519,0.6018518518518519,0.5688409703504044,
+service_class_inference,random_forest,2,0.5,1.0,1.0,1.0,1.0
+service_label_only_control,random_forest,2,0.5,0.5,0.5,0.4984520123839009,0.49999999999999994

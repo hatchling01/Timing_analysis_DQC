@@ -1,0 +1,5 @@
+protocol_context,graph_mode,matching_probe_count,nonmatching_probe_count,matching_mean_abs_excess_ns,nonmatching_mean_abs_excess_ns,mean_abs_diagonal_minus_offdiagonal_ns,matching_delayed_fraction,nonmatching_delayed_fraction,matching_speedup_fraction,nonmatching_speedup_fraction
+direct_coherent_dynamic_graph,edge_localized,165,837,172.19723907204326,0.0,172.19723907204326,0.5636363636363636,0.0,0.0,0.0
+direct_coherent_dynamic_graph,global_only_control,165,837,9.10736181586035,8.963824461784203,0.1435373540761482,0.18787878787878787,0.1816009557945042,0.0,0.0
+entanglement_assisted_dynamic_graph,edge_localized,165,837,120.69377440528845,1.7204301075268817,118.97334429776157,0.17575757575757575,0.0,0.43636363636363634,0.007168458781362007
+entanglement_assisted_dynamic_graph,global_only_control,165,837,4.163725714191225,4.102245740331574,0.06147997385965098,0.1393939393939394,0.11230585424133811,0.0,0.0

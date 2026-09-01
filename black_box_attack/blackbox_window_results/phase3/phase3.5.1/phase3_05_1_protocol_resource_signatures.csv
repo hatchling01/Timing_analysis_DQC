@@ -1,0 +1,6 @@
+protocol_class,epr_mode,ordered_stage_sequence,distinctive_resources
+direct_transfer,none,endpoint[path] -> switch_path[path] -> quantum_link[path] -> receiver_gate[path] -> completion -> reset,switch_path[path]|quantum_link[path]|receiver_gate[path]
+on_demand_epr,on_demand,epr_generator -> quantum_link[path] -> endpoint[path] -> readout -> feedforward -> correction[path] -> completion -> reset,epr_generator|quantum_link[path]|correction[path]
+prefetched_epr,route_local_prefetch,EPR_pool[path] -> endpoint[path] -> readout -> feedforward -> correction[path] -> completion -> reset; async refill uses epr_generator + quantum_link[path],EPR_pool[path]|async_refill|correction[path]
+telegate,route_local_prefetch,EPR_pool[path] -> endpoint[path] -> gate_interaction[path] -> readout -> feedforward -> gate_correction[path] -> completion -> reset,gate_interaction[path]|gate_correction[path]
+teledata,route_local_prefetch,EPR_pool[path] -> state_load[path] -> endpoint[path] -> readout -> feedforward -> state_reconstruct[path] -> completion -> reset,state_load[path]|state_reconstruct[path]

@@ -1,0 +1,13 @@
+scenario_name,mode,shared_generation,generation_capacity,generation_latency_ns,generation_success_probability,max_generation_retries,shared_storage,storage_capacity,prefetch_target,refill_policy,low_water_mark,pair_lifetime_ns,strict_reserved_admission,description,expected_mechanism,scenario_family
+isolated_on_demand,on_demand,False,1,240.0,1.0,3,True,0,0,none,0,1200.0,False,Tenant-dedicated on-demand EPR generators; no shared EPR state.,negative_control,isolated
+shared_on_demand_gen1,on_demand,True,1,240.0,1.0,3,True,0,0,none,0,1200.0,False,One shared generator; every remote operation requests a fresh pair.,direct_generation_queueing,on_demand
+shared_on_demand_gen2,on_demand,True,2,240.0,1.0,3,True,0,0,none,0,1200.0,False,Two shared generation lanes for the tested two-tenant concurrency.,generation_capacity_control,on_demand
+shared_prefetch_pool1,prefetch,True,1,240.0,1.0,3,True,1,1,maintain_target,0,1200.0,False,Single-pair shared prefetch cache with asynchronous refill.,prefetch_depletion_refill,prefetch
+shared_prefetch_pool2,prefetch,True,1,240.0,1.0,3,True,2,2,maintain_target,0,1200.0,False,Two-pair shared prefetch cache with one refill lane.,prefetch_depletion_refill,prefetch
+shared_prefetch_pool2_gen2,prefetch,True,2,240.0,1.0,3,True,2,2,maintain_target,0,1200.0,False,Two-pair shared cache and two generation lanes.,prefetch_capacity_control,prefetch
+shared_buffer4_lowwater1,buffered,True,1,240.0,1.0,3,True,4,4,low_water_batch,1,1200.0,False,Finite four-pair shared buffer refilled in batches only at low water.,buffer_depletion_batch_refill,buffered
+reserved_pool1_shared_generator,reserved,True,1,240.0,1.0,3,False,1,1,maintain_target,0,1200.0,False,One reserved pair slot per tenant; refill generator remains shared.,reserved_storage_shared_refill,reserved
+reserved_pool1_dedicated_generators,reserved,False,1,240.0,1.0,3,False,1,1,maintain_target,0,1200.0,False,One reserved pair slot and dedicated refill generator per tenant.,full_entanglement_isolation_control,reserved
+strict_reserved_pool1_shared_generator,reserved,True,1,240.0,1.0,3,False,1,1,maintain_target,0,1200.0,True,Reserved slots cannot borrow; an empty reservation causes immediate admission failure.,reservation_failure_channel,reserved
+shared_prefetch_short_lifetime,prefetch,True,1,240.0,1.0,3,True,2,2,maintain_target,0,350.0,False,Short-lived prefetched pairs create expiration/refill churn.,expiration_state_channel,lifetime
+shared_prefetch_unreliable_generation,prefetch,True,1,180.0,0.75,4,True,2,2,maintain_target,0,1200.0,False,Prefetch with deterministic reproducible failed generation attempts and retry.,generation_failure_refill_jitter,generation_failure

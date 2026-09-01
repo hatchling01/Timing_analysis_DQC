@@ -1,0 +1,7 @@
+stage_index,stage_name,causal_component,duration_ns,critical_path,external_completion_here,postcompletion,description
+0,epr_pair_acquisition,epr_resource_manager,dynamic,True,False,False,Acquire one valid EPR pair from on-demand generation or finite storage.
+1,epr_bind_and_local_prepare,tenant_local_endpoint,20.0,True,False,False,Tenant-dedicated stage; retained to embed EPR management in the validated remote-operation pipeline.
+2,bell_measurement,tenant_local_bell_measurement,70.0,True,False,False,Tenant-dedicated stage; retained to embed EPR management in the validated remote-operation pipeline.
+3,classical_feedforward,tenant_local_feedforward,40.0,True,False,False,Tenant-dedicated stage; retained to embed EPR management in the validated remote-operation pipeline.
+4,conditional_control,tenant_local_conditional_control,20.0,True,True,False,Tenant-dedicated stage; retained to embed EPR management in the validated remote-operation pipeline.
+5,reset_recovery,tenant_local_reset,120.0,False,False,True,Tenant-dedicated stage; retained to embed EPR management in the validated remote-operation pipeline.

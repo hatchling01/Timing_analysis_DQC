@@ -1,0 +1,7 @@
+protocol_context,spatial_mode,best_model,chance_accuracy,best_accuracy,best_macro_f1,best_top2_accuracy,argmax_cumulative_positive_accuracy,matching_mean_abs_excess_ns,nonmatching_mean_abs_excess_ns,mean_abs_diagonal_minus_offdiagonal_ns
+direct_coherent_all_shared_local_route,global_only_control,random_forest,0.25,0.25,0.21875,0.5,0.25,8.80342527785335,8.803425277853352,-1.7763568394002505e-15
+direct_coherent_all_shared_local_route,hybrid_local_global,hist_gradient_boosting,0.25,1.0,1.0,1.0,0.9583333333333334,463.9464392975276,8.803425277853352,455.14301401967424
+direct_coherent_all_shared_local_route,localized_only,logistic_regression,0.25,1.0,1.0,1.0,1.0,463.9464392975276,0.0,463.9464392975276
+entanglement_assisted_all_shared_local_route,global_only_control,random_forest,0.25,0.25,0.21205357142857142,0.5,0.25,5.221572069141774,5.221572069141773,8.881784197001252e-16
+entanglement_assisted_all_shared_local_route,hybrid_local_global,logistic_regression,0.25,1.0,1.0,1.0,0.4583333333333333,86.44187882295113,5.221572069141773,81.22030675380935
+entanglement_assisted_all_shared_local_route,localized_only,logistic_regression,0.25,1.0,1.0,1.0,0.8958333333333334,86.44187882295113,0.0,86.44187882295113

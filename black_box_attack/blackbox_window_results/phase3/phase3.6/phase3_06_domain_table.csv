@@ -1,0 +1,12 @@
+domain_id,domain_family,description,workload_mode,link_mode,placement_policy,timing_scale,prefetch_target
+known_domain,closed_world,"Known workloads, known links, balanced placement, nominal implementation.",known,train_grid,balanced_round_robin,1.0,2
+unseen_workload,open_world,Unseen temporal workload families; known links and nominal architecture.,ood,train_grid,balanced_round_robin,1.0,2
+unseen_link,open_world,Known workload families with unseen link-success probabilities.,known,ood_grid,balanced_round_robin,1.0,2
+unseen_placement_single,open_world,Known workloads with single-path hidden victim placement.,known,nominal_link,single_path_hotspot,1.0,2
+unseen_placement_two_path,open_world,Known workloads with two-path skewed hidden victim placement.,known,nominal_link,two_path_skewed,1.0,2
+unseen_placement_markov,open_world,Known workloads with Markov-local hidden victim placement.,known,nominal_link,markov_locality,1.0,2
+unseen_impl_fast,open_world,Known workloads with victim service durations scaled by 0.85.,known,nominal_link,balanced_round_robin,0.85,2
+unseen_impl_slow,open_world,Known workloads with victim service durations scaled by 1.15.,known,nominal_link,balanced_round_robin,1.15,2
+unseen_prefetch_small,open_world,Known workloads with route-local prefetch target reduced to 1.,known,nominal_link,balanced_round_robin,1.0,1
+unseen_prefetch_large,open_world,Known workloads with route-local prefetch target increased to 3.,known,nominal_link,balanced_round_robin,1.0,3
+joint_shift,open_world,Unseen workload + unseen link + unseen placement + unseen implementation.,ood,joint_link,markov_locality,1.15,1

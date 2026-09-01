@@ -1,0 +1,12 @@
+protocol_name,rank_by_mean_abs_timing,resource_name,resource_role,state_type,affected_probe_fraction,mean_abs_timing_change_ns,longest_affected_run,classification_accuracy
+direct_coherent_remote_cx,1,endpoint,communication endpoint / communication-qubit lifetime,held critical-path + post-completion,0.8486111111111111,1280.1241117306965,32.666666666666664,1.0
+direct_coherent_remote_cx,2,switch_path,route/path reservation,critical-path,0.17847222222222223,8.555934445707758,1.3333333333333333,1.0
+direct_coherent_remote_cx,3,quantum_link,coherent/microwave intermodule transfer,critical-path,0.16041666666666668,5.484441169463503,1.3333333333333333,1.0
+direct_coherent_remote_cx,4,reset,communication resource recovery,post-completion persistent reuse state,0.0,0.0,0.0,0.3333333333333333
+entanglement_assisted_remote_cx,1,epr_pool,finite prefetched EPR inventory,persistent inventory state,0.1125,11.618546397142628,0.6666666666666666,0.6666666666666666
+entanglement_assisted_remote_cx,2,readout,Bell/ancilla measurement readout,critical-path,0.11319444444444444,3.970115262354978,1.3333333333333333,0.9333333333333333
+entanglement_assisted_remote_cx,3,feedforward,classical coordination / conditional decision,critical-path,0.06944444444444445,1.2645570616159856,0.9,0.5333333333333333
+entanglement_assisted_remote_cx,4,endpoint,consume/access locally stored entangled resource,critical-path scoped,0.03333333333333333,0.30121574450579186,0.7,0.8
+entanglement_assisted_remote_cx,5,quantum_link,entanglement distribution/refill,background resource-management path,0.0,0.0,0.0,0.3333333333333333
+entanglement_assisted_remote_cx,6,epr_generator,EPR generation setup/control,background resource-management path,0.0,0.0,0.0,0.3333333333333333
+entanglement_assisted_remote_cx,7,reset,measurement/local communication ancilla recovery,post-completion persistent reuse state,0.0,0.0,0.0,0.3333333333333333

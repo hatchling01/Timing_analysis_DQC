@@ -1,0 +1,14 @@
+validation_group,assertion_name,passed,expected,observed
+blackbox,feature_vector_excludes_domain_and_evaluator_state,True,[],[]
+blackbox,feature_columns_match_phase351,True,all Phase3.5.1 features present,0
+evaluation,known_train_validation_test_groups_disjoint,True,True,True
+evaluation,all_known_profiles_in_train,True,"{'sparse_periodic', 'dense_periodic', 'synchronization_bursty'}","{'sparse_periodic', 'dense_periodic', 'synchronization_bursty'}"
+evaluation,all_known_profiles_in_validation,True,"{'sparse_periodic', 'dense_periodic', 'synchronization_bursty'}","{'sparse_periodic', 'dense_periodic', 'synchronization_bursty'}"
+evaluation,all_known_profiles_in_closed_test,True,"{'sparse_periodic', 'dense_periodic', 'synchronization_bursty'}","{'sparse_periodic', 'dense_periodic', 'synchronization_bursty'}"
+evaluation,open_world_schedule_ids_do_not_overlap_training,True,[],[]
+design,all_open_world_domains_defined,True,"{'unseen_prefetch_small', 'unseen_workload', 'unseen_link', 'unseen_prefetch_large', 'unseen_placement_two_path', 'unseen_impl_fast', 'unseen_placement_markov', 'known_domain', 'joint_shift', 'unseen_impl_slow', 'unseen_placement_single'}","{'unseen_prefetch_small', 'unseen_workload', 'unseen_link', 'unseen_prefetch_large', 'unseen_placement_two_path', 'unseen_impl_fast', 'unseen_placement_markov', 'known_domain', 'joint_shift', 'unseen_impl_slow', 'unseen_placement_single'}"
+design,ood_workload_families_are_unseen,True,True,set()
+design,ood_link_probabilities_unseen,True,True,set()
+evaluation,classification_model_selected_for_every_task,True,"{'service_label_only_control', 'protocol_label_only_control', 'retry_policy_inference', 'service_class_inference', 'protocol_inference', 'distillation_depth_inference'}","{'service_label_only_control', 'protocol_label_only_control', 'retry_policy_inference', 'service_class_inference', 'protocol_inference', 'distillation_depth_inference'}"
+negative_control,protocol_control_features_identical,True,<=1e-9,0.0
+negative_control,service_control_features_identical,True,<=1e-9,0.0

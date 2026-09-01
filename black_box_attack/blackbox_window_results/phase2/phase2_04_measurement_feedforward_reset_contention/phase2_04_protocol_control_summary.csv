@@ -1,0 +1,4 @@
+control_name,probe_count,affected_probe_fraction,mean_excess_turnaround_ns,max_excess_turnaround_ns
+coherent_isolated,48,0.0,0.0,0.0
+coherent_shared_readout,48,0.0,0.0,0.0
+coherent_shared_feedforward,48,0.0,0.0,0.0

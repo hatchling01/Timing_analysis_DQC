@@ -1,0 +1,17 @@
+validation_group,assertion_name,passed,expected,observed,details
+protocol_definition,two_primary_protocols_present,True,"{'entanglement_assisted_remote_cx', 'direct_coherent_remote_cx'}","{'entanglement_assisted_remote_cx', 'direct_coherent_remote_cx'}",
+normalization,same_logical_operation,True,{'logical_remote_cx'},{'logical_remote_cx'},
+normalization,equal_nominal_critical_latency_after_prerequisite,True,all protocols equal,"[150.0, 150.0]",Direct starts with synchronous transfer resources; entanglement-assisted starts after EPR availability.
+normalization,equal_postcompletion_cleanup,True,all protocols equal,"[120.0, 120.0]",
+normalization,one_shared_logical_release_schedule_per_workload_trial,True,exactly one phase/schedule definition per workload+trial,max unique phases=1,
+negative_control,direct_coherent_remote_cx_isolated_zero_leakage,True,affected=0 and mean_abs_timing=0,"affected=0.0, mean_abs=0.0",
+negative_control,entanglement_assisted_remote_cx_isolated_zero_leakage,True,affected=0 and mean_abs_timing=0,"affected=0.0, mean_abs=0.0",
+positive_control,direct_coherent_remote_cx_all_used_shared_nonzero_channel,True,> 0 affected fraction,0.8486111111111113,
+positive_control,entanglement_assisted_remote_cx_all_used_shared_nonzero_channel,True,> 0 affected fraction,0.2659722222222223,
+protocol_specificity,direct_protocol_has_no_epr_state_or_generation,True,zero EPR events,"state=0, generation=0",
+protocol_specificity,entanglement_assisted_protocol_uses_epr_state_and_generation,True,nonzero EPR state and generation events,"state=111528, generation=54054",
+protocol_specificity,protocols_only_request_their_defined_resources,True,zero invalid resource requests,"direct_wrong=0, entangled_wrong=0",
+resource_calendar,no_capacity_one_resource_overlap,True,no overlap on any capacity-1 resource key,checked all resource intervals,
+blackbox_boundary,attacker_visible_columns_are_blackbox_only,True,"['affected', 'attacker_only_completion_ns', 'attacker_only_success', 'attacker_only_turnaround_ns', 'combined_completion_ns', 'combined_success', 'combined_turnaround_ns', 'excess_turnaround_ns', 'failure_transition', 'probe_index', 'protocol_name', 'release_ns', 'speedup', 'trace_id']","['affected', 'attacker_only_completion_ns', 'attacker_only_success', 'attacker_only_turnaround_ns', 'combined_completion_ns', 'combined_success', 'combined_turnaround_ns', 'excess_turnaround_ns', 'failure_transition', 'probe_index', 'protocol_name', 'release_ns', 'speedup', 'trace_id']",unexpected=[]
+blackbox_boundary,master_blackbox_contains_required_external_observables,True,"['affected', 'attacker_only_completion_ns', 'combined_completion_ns', 'excess_turnaround_ns', 'probe_index', 'protocol_name', 'release_ns']","['affected', 'attacker_only_completion_ns', 'combined_completion_ns', 'excess_turnaround_ns', 'probe_index', 'protocol_name', 'release_ns']",
+scenario_definition,sharing_toggles_are_protocol_relevant,True,every shared resource is used by its protocol,all valid,

@@ -1,0 +1,3 @@
+validation_group,scenario_name,protocol_name,request_A_endpoint_reserved_ns,request_A_switch_released_ns,request_A_endpoint_released_ns,request_B_ready_ns,request_B_endpoint_grant_ns,request_B_endpoint_wait_ns,owner_switch_release_ns,owner_endpoint_release_ns,switch_only_ready_ns,switch_only_start_ns,switch_only_completion_ns,switch_only_wait_ns
+resource_lifetimes,resource_lifetime::endpoint_held_through_reset,direct_remote_cx,0.0,115.0,185.0,116.0,185.0,69.0,,,,,,
+resource_lifetimes,resource_lifetime::switch_released_independently,direct_remote_cx,,,,,,,115.0,185.0,115.0,115.0,125.0,0.0

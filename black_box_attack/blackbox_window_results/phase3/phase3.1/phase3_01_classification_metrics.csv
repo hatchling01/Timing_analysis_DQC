@@ -1,0 +1,17 @@
+protocol_context,task,model,train_trace_count,test_trace_count,metric_primary,roc_auc,accuracy,macro_f1
+direct_coherent_all_shared,binary_remote_activity,logistic_regression,150,66,roc_auc,1.0,1.0,1.0
+direct_coherent_all_shared,binary_remote_activity,random_forest,150,66,roc_auc,1.0,1.0,1.0
+direct_coherent_all_shared,binary_remote_activity,gradient_boosted_trees,150,66,roc_auc,1.0,1.0,1.0
+direct_coherent_all_shared,binary_remote_activity,temporal_logistic,150,66,roc_auc,1.0,1.0,1.0
+direct_coherent_all_shared,six_class_activity_intensity,logistic_regression,150,66,accuracy,,0.8181818181818182,0.7708333333333334
+direct_coherent_all_shared,six_class_activity_intensity,random_forest,150,66,accuracy,,0.8181818181818182,0.7708333333333334
+direct_coherent_all_shared,six_class_activity_intensity,gradient_boosted_trees,150,66,accuracy,,0.8181818181818182,0.7708333333333334
+direct_coherent_all_shared,six_class_activity_intensity,temporal_logistic,150,66,accuracy,,0.8181818181818182,0.7540106951871658
+entanglement_assisted_all_shared,binary_remote_activity,logistic_regression,150,66,roc_auc,1.0,1.0,1.0
+entanglement_assisted_all_shared,binary_remote_activity,random_forest,150,66,roc_auc,1.0,1.0,1.0
+entanglement_assisted_all_shared,binary_remote_activity,gradient_boosted_trees,150,66,roc_auc,1.0,1.0,1.0
+entanglement_assisted_all_shared,binary_remote_activity,temporal_logistic,150,66,roc_auc,1.0,1.0,1.0
+entanglement_assisted_all_shared,six_class_activity_intensity,logistic_regression,150,66,accuracy,,0.803030303030303,0.7378586990351698
+entanglement_assisted_all_shared,six_class_activity_intensity,random_forest,150,66,accuracy,,0.8333333333333334,0.7691308407420939
+entanglement_assisted_all_shared,six_class_activity_intensity,gradient_boosted_trees,150,66,accuracy,,0.7727272727272727,0.7245175438596491
+entanglement_assisted_all_shared,six_class_activity_intensity,temporal_logistic,150,66,accuracy,,0.5757575757575758,0.5216269841269842

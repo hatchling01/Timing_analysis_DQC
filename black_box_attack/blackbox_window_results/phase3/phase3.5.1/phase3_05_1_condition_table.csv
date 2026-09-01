@@ -1,0 +1,21 @@
+condition_id,task_name,evaluator_label,runtime_mode,post_pipeline,distillation_depth,retry_limit,uses_prefetch,description
+protocol_direct,protocol_inference,direct_transfer,direct,direct,0,1,False,Direct coherent transfer.
+protocol_on_demand,protocol_inference,on_demand_epr,custom_epr,generic_epr,0,4,False,Fresh raw pair for every request.
+protocol_prefetch,protocol_inference,prefetched_epr,prefetch,generic_epr,0,4,True,Warm route-local EPR pool.
+protocol_telegate,protocol_inference,telegate,prefetch,telegate,0,4,True,Gate-teleportation-specific pipeline.
+protocol_teledata,protocol_inference,teledata,prefetch,teledata,0,4,True,State-teleportation-specific pipeline.
+distill_0,distillation_depth_inference,distill_0,custom_epr,generic_epr,0,6,False,One raw pair; no distillation.
+distill_1,distillation_depth_inference,distill_1,custom_epr,generic_epr,1,6,False,Two raw pairs; one distillation round.
+distill_2,distillation_depth_inference,distill_2,custom_epr,generic_epr,2,6,False,Four raw pairs; two distillation rounds.
+retry_1,retry_policy_inference,retry_1,custom_epr,generic_epr,0,1,False,One attempt per required raw pair.
+retry_2,retry_policy_inference,retry_2,custom_epr,generic_epr,0,2,False,Two attempts per required raw pair.
+retry_4,retry_policy_inference,retry_4,custom_epr,generic_epr,0,4,False,Four attempts per required raw pair.
+service_low_latency,service_class_inference,low_latency,custom_epr,generic_epr,0,4,False,No-distillation low-latency service.
+service_high_fidelity,service_class_inference,high_fidelity,custom_epr,generic_epr,2,4,False,Two-round high-fidelity service.
+protocol_control_direct_transfer,protocol_label_only_control,direct_transfer,prefetch,generic_epr,0,4,True,Label-only protocol control.
+protocol_control_on_demand_epr,protocol_label_only_control,on_demand_epr,prefetch,generic_epr,0,4,True,Label-only protocol control.
+protocol_control_prefetched_epr,protocol_label_only_control,prefetched_epr,prefetch,generic_epr,0,4,True,Label-only protocol control.
+protocol_control_telegate,protocol_label_only_control,telegate,prefetch,generic_epr,0,4,True,Label-only protocol control.
+protocol_control_teledata,protocol_label_only_control,teledata,prefetch,generic_epr,0,4,True,Label-only protocol control.
+service_control_low_latency,service_label_only_control,low_latency,custom_epr,generic_epr,1,4,False,Label-only service control.
+service_control_high_fidelity,service_label_only_control,high_fidelity,custom_epr,generic_epr,1,4,False,Label-only service control.

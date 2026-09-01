@@ -1,0 +1,42 @@
+{
+  "experiment": "Phase 2.7 \u2014 Remote Protocol Comparison",
+  "output_directory": "blackbox_window_results/phase2/phase2_07_remote_protocol_comparison",
+  "logical_operation": "logical_remote_cx",
+  "protocol_count": 2,
+  "protocols": [
+    "direct_coherent_remote_cx",
+    "entanglement_assisted_remote_cx"
+  ],
+  "scenario_count": 18,
+  "workload_count": 3,
+  "trial_count_per_workload_configuration": 10,
+  "scenario_workload_trial_tuples": 540,
+  "observation_window_ns": 20000.0,
+  "probe_period_ns": 420.0,
+  "normalized_nominal_critical_latency_ns": 150.0,
+  "postcompletion_cleanup_ns": 120.0,
+  "epr_pool_capacity": 2,
+  "epr_prefetch_target": 2,
+  "epr_generation_latency_ns": 240.0,
+  "epr_pair_lifetime_ns": 2000.0,
+  "validation_assertion_count": 16,
+  "passed_assertions": 16,
+  "failed_assertions": 0,
+  "all_validations_passed": true,
+  "blackbox_columns": [
+    "affected",
+    "attacker_only_completion_ns",
+    "attacker_only_success",
+    "attacker_only_turnaround_ns",
+    "combined_completion_ns",
+    "combined_success",
+    "combined_turnaround_ns",
+    "excess_turnaround_ns",
+    "failure_transition",
+    "probe_index",
+    "protocol_name",
+    "release_ns",
+    "speedup",
+    "trace_id"
+  ]
+}

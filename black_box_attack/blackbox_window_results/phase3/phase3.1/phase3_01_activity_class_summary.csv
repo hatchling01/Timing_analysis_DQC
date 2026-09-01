@@ -1,0 +1,13 @@
+protocol_context,activity_class,trace_count,mean_remote_operation_count,mean_remote_operation_rate_per_us,mean_remote_activity_fraction,mean_total_endpoint_occupancy_ns,mean_victim_makespan_slowdown
+direct_coherent_all_shared,bursty_remote,36,57.19444444444444,2.8597222222222225,0.6724849636196967,15442.5,1.376863229595255
+direct_coherent_all_shared,heavy_remote,36,44.388888888888886,2.2194444444444446,0.33135748299231194,11985.0,1.2447870230992533
+direct_coherent_all_shared,local_only,36,0.0,0.0,0.0,0.0,1.0
+direct_coherent_all_shared,moderate_remote,36,28.055555555555557,1.4027777777777777,0.20940984035166763,7575.0,1.027876095626315
+direct_coherent_all_shared,no_victim,36,0.0,0.0,0.0,0.0,1.0
+direct_coherent_all_shared,sparse_remote,36,17.61111111111111,0.8805555555555555,0.13206666400946587,4755.0,1.0045521712718684
+entanglement_assisted_all_shared,bursty_remote,36,57.19444444444444,2.8597222222222225,0.6724849636196967,1143.888888888889,1.0602079887115794
+entanglement_assisted_all_shared,heavy_remote,36,44.388888888888886,2.2194444444444446,0.33135748299231194,887.7777777777779,1.0003824038680607
+entanglement_assisted_all_shared,local_only,36,0.0,0.0,0.0,0.0,1.0
+entanglement_assisted_all_shared,moderate_remote,36,28.055555555555557,1.4027777777777777,0.20940984035166763,561.1111111111111,1.0004298830575395
+entanglement_assisted_all_shared,no_victim,36,0.0,0.0,0.0,0.0,1.0
+entanglement_assisted_all_shared,sparse_remote,36,17.61111111111111,0.8805555555555555,0.13206666400946587,352.22222222222223,1.000435139317532

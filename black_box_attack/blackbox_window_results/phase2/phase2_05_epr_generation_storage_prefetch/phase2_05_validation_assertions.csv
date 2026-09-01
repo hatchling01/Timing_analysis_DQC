@@ -1,0 +1,16 @@
+validation_group,assertion_name,passed,expected,observed,details
+blackbox_boundary,attacker_visible_columns_are_external_only,True,"['affected', 'attacker_only_completion_ns', 'attacker_only_success', 'attacker_only_turnaround_ns', 'combined_completion_ns', 'combined_success', 'combined_turnaround_ns', 'excess_turnaround_ns', 'failure_transition', 'probe_index', 'release_ns', 'speedup', 'trace_id']","['affected', 'attacker_only_completion_ns', 'attacker_only_success', 'attacker_only_turnaround_ns', 'combined_completion_ns', 'combined_success', 'combined_turnaround_ns', 'excess_turnaround_ns', 'failure_transition', 'probe_index', 'release_ns', 'speedup', 'trace_id']",
+pipeline_timing,successful_remote_completion_matches_fixed_post_epr_pipeline,True,absolute error <= 1e-7 ns,1.8189894035458565e-12,
+request_integrity,all_requests_resolved_success_or_failure,True,all resolved,58824,
+pair_lifecycle,no_pair_consumed_after_expiration,True,True,True,
+pair_lifecycle,pair_identifiers_unique,True,True,True,
+storage_capacity,finite_pool_never_exceeds_capacity,True,True,0,
+storage_capacity,pool_occupancy_never_negative,True,True,0,
+isolation_control,dedicated_on_demand_generators_remove_cross_tenant_timing_change,True,0.0,0.0,
+isolation_control,reserved_storage_plus_dedicated_generation_removes_cross_tenant_channel,True,0 timing/failure transition,"{'affected': 0.0, 'failure_transition': 0.0}",
+generation_capacity,second_generation_lane_does_not_increase_on_demand_leakage,True,gen2 <= gen1,"{'gen1': 411.12975539206417, 'gen2': 6.477540745152948}",
+persistent_state,prefetch_exposes_nonzero_delayed_depletion_state,True,> 0,0.17916666666666667,A later attacker probe should sometimes wait after victim-induced pool depletion without direct generator overlap.
+pair_lifetime,short_lifetime_scenario_exercises_expiration,True,> 0 expiration events,2089,
+generation_failure,unreliable_generation_scenario_exercises_failed_attempts,True,> 0 failed attempts,1669,
+reservation,strict_reservation_exercises_admission_failures,True,> 0 attacker failure fraction,0.12013888888888889,
+causal_isolation,non_epr_pipeline_resources_have_zero_queue_wait,True,0.0,0.0,

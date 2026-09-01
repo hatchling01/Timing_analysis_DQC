@@ -1,0 +1,11 @@
+assertion_name,passed,expected,observed,details
+blackbox_columns_are_attacker_only,True,"['attacker_only_completion_ns', 'attacker_only_success', 'attacker_only_turnaround_ns', 'combined_completion_ns', 'combined_success', 'combined_turnaround_ns', 'delayed', 'excess_turnaround_ns', 'failure_transition', 'probe_index', 'protocol_context', 'release_ns', 'speedup', 'trace_id']","['attacker_only_completion_ns', 'attacker_only_success', 'attacker_only_turnaround_ns', 'combined_completion_ns', 'combined_success', 'combined_turnaround_ns', 'delayed', 'excess_turnaround_ns', 'failure_transition', 'probe_index', 'protocol_context', 'release_ns', 'speedup', 'trace_id']",
+model_features_exclude_ground_truth_and_internal_state,True,no forbidden evaluator/internal tokens,[],
+no_victim_has_zero_remote_operations,True,all zero,[0.0],
+local_only_has_zero_remote_operations,True,all zero,[0.0],
+remote_classes_have_positive_remote_operations,True,all > 0,16.0,
+no_victim_and_local_only_are_remote_channel_negative_controls,True,max mean absolute timing change <= 1e-9 ns,0.0,
+grouped_split_has_no_instance_overlap,True,empty train/test victim-instance intersection,[],
+every_activity_class_present_in_train_and_test,True,positive count in both splits,"{'test': {'bursty_remote': 6, 'heavy_remote': 5, 'local_only': 5, 'moderate_remote': 6, 'no_victim': 6, 'sparse_remote': 5}, 'train': {'bursty_remote': 12, 'heavy_remote': 13, 'local_only': 13, 'moderate_remote': 12, 'no_victim': 12, 'sparse_remote': 13}}",
+all_requested_protocol_contexts_present,True,"['direct_coherent_all_shared', 'entanglement_assisted_all_shared']","['direct_coherent_all_shared', 'entanglement_assisted_all_shared']",
+phase2_07_protocol_normalization_preserved,True,150 ns nominal post-prerequisite critical latency,"[('direct_coherent_all_shared', 150.0), ('entanglement_assisted_all_shared', 150.0)]",

@@ -1,0 +1,10 @@
+start_name,start_error_ns,estimated_window_start_ns,estimated_window_end_ns,observation_duration_ns,total_attacker_remote_requests,first_remote_probe_release_ns,last_remote_probe_release_ns
+start_m10us,-10000,10000,30000,20000,48,10030,29770
+start_m5us,-5000,15000,35000,20000,48,15030,34770
+start_m2p5us,-2500,17500,37500,20000,48,17530,37270
+start_m1us,-1000,19000,39000,20000,48,19030,38770
+start_exact,0,20000,40000,20000,48,20030,39770
+start_p1us,1000,21000,41000,20000,48,21030,40770
+start_p2p5us,2500,22500,42500,20000,48,22530,42270
+start_p5us,5000,25000,45000,20000,48,25030,44770
+start_p10us,10000,30000,50000,20000,48,30030,49770

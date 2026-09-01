@@ -1,0 +1,4 @@
+validation_group,scenario_name,protocol_name,request_id,nominal_stage_sum_ns,observed_latency_ns,total_wait_ns,latency_error_ns
+baseline_no_contention,baseline_no_contention::direct_remote_cx,direct_remote_cx,baseline_direct_remote_cx,185.0,185.0,0.0,0.0
+baseline_no_contention,baseline_no_contention::direct_state_transfer,direct_state_transfer,baseline_direct_state_transfer,230.0,230.0,0.0,0.0
+baseline_no_contention,baseline_no_contention::teleportation_state_transfer,teleportation_state_transfer,baseline_teleportation_state_transfer,265.0,265.0,0.0,0.0

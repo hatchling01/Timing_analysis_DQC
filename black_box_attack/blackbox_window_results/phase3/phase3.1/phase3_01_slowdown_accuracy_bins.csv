@@ -1,0 +1,21 @@
+protocol_context,model,slowdown_bin,sample_count,mean_victim_makespan_slowdown,binary_accuracy,mean_activity_score
+direct_coherent_all_shared,gradient_boosted_trees,"(0.999, 1.014]",33,1.001969545624401,1.0,0.33334309908731086
+direct_coherent_all_shared,gradient_boosted_trees,"(1.014, 1.226]",16,1.0797217947848994,1.0,0.999990093588957
+direct_coherent_all_shared,gradient_boosted_trees,"(1.226, 1.635]",17,1.3945110162005052,1.0,0.9999900935889569
+direct_coherent_all_shared,logistic_regression,"(0.999, 1.014]",33,1.001969545624401,1.0,0.33465857560100815
+direct_coherent_all_shared,logistic_regression,"(1.014, 1.226]",16,1.0797217947848994,1.0,0.9932344286457113
+direct_coherent_all_shared,logistic_regression,"(1.226, 1.635]",17,1.3945110162005052,1.0,0.9990699563514139
+direct_coherent_all_shared,random_forest,"(0.999, 1.014]",33,1.001969545624401,1.0,0.3333333333333333
+direct_coherent_all_shared,random_forest,"(1.014, 1.226]",16,1.0797217947848994,1.0,1.0
+direct_coherent_all_shared,random_forest,"(1.226, 1.635]",17,1.3945110162005052,1.0,1.0
+direct_coherent_all_shared,temporal_logistic,"(0.999, 1.014]",33,1.001969545624401,1.0,0.33041171392158203
+direct_coherent_all_shared,temporal_logistic,"(1.014, 1.226]",16,1.0797217947848994,1.0,0.9976343224642554
+direct_coherent_all_shared,temporal_logistic,"(1.226, 1.635]",17,1.3945110162005052,1.0,0.9999992832572708
+entanglement_assisted_all_shared,gradient_boosted_trees,"(0.999, 1.002]",49,1.000118251050109,1.0,0.6061545060736707
+entanglement_assisted_all_shared,gradient_boosted_trees,"(1.002, 1.206]",17,1.0686122598127994,1.0,0.99998941474244
+entanglement_assisted_all_shared,logistic_regression,"(0.999, 1.002]",49,1.000118251050109,1.0,0.5803593519234894
+entanglement_assisted_all_shared,logistic_regression,"(1.002, 1.206]",17,1.0686122598127994,1.0,0.9978609955749382
+entanglement_assisted_all_shared,random_forest,"(0.999, 1.002]",49,1.000118251050109,1.0,0.5802273567927103
+entanglement_assisted_all_shared,random_forest,"(1.002, 1.206]",17,1.0686122598127994,1.0,1.0
+entanglement_assisted_all_shared,temporal_logistic,"(0.999, 1.002]",49,1.000118251050109,1.0,0.5751079892722651
+entanglement_assisted_all_shared,temporal_logistic,"(1.002, 1.206]",17,1.0686122598127994,1.0,0.9280387005348514
